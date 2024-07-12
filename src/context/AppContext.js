@@ -9,10 +9,10 @@ export const MiniContextProvider = ({children}) => {
     const [isTokenInfo,setIsTokenInfo] = useState(true)
     const [isFaucet,setIsFaucet] = useState(false);
     const [scan,setScan] = useState('holesky.fraxscan.com')
-    const [providerURL,setProviderURL] = useState('https://rpc.testnet.frax.com/')
-    const [providerName,setProviderName] = useState('Fraxtal')
-    const [providerTick,setProviderTick] = useState('frxETH')
-    const [providerImg,setProviderImg] = useState('./assets/frx.png')
+    const [providerURL,setProviderURL] = useState('https://api.mainnet-beta.solana.com')
+    const [providerName,setProviderName] = useState('Mainnet')
+    const [providerTick,setProviderTick] = useState('SOL')
+    const [providerImg,setProviderImg] = useState('./assets/sol.png')
     const [isChainList,setIsChainList] = useState(false)
     const [history, setHistory] = useState(null);
     const [tokens,setTokens] = useState(null)
@@ -56,7 +56,7 @@ export const MiniContextProvider = ({children}) => {
     const [isSend,setIsSend] = useState(false)
     const [isReceive,setIsReceive] = useState(false)
     const [isScan,setIsScan] = useState(false)
-    const [isAuthenticate,setIsAuthenticate] = useState(false)
+    const [isAuthenticate,setIsAuthenticate] = useState(true)
     const [user,setUser ] = useState(null);
     const [userAddress,setUserAddress] = useState('')
     const [userName, setUserName] = useState('')

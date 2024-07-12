@@ -7,15 +7,23 @@ export const ChainSelector = () => {
     
      const chains = [
         {
-          name: 'Devnet',
-          providerUrl: 'https://rpc.testnet.frax.com',
+          name: 'Mainnet',
+          providerUrl: 'https://api.mainnet-beta.solana.com',
           imgUrl: './assets/5426.png',
           Tick: 'solana',
           scan: 'holesky.fraxscan.com',
           faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
         },
         {
-            name: 'Mainnet',
+            name: 'Testnet',
+            providerUrl: 'https://ethereum-sepolia-rpc.publicnode.com',
+            imgUrl: './assets/5426.png',
+            Tick: 'Solana',
+            scan: 'sepolia.etherscan.io',
+            faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
+        },
+        {
+            name: 'Devnet',
             providerUrl: 'https://ethereum-sepolia-rpc.publicnode.com',
             imgUrl: './assets/5426.png',
             Tick: 'Solana',
