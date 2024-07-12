@@ -54,21 +54,17 @@ export const Create = () => {
             //console.log(mnemonic)
             const seed = await bip39.mnemonicToSeed(mnemonic)
             //console.log(seed,'seed')
-            setPhrase(mnemonic)
             const seedBytes = seed.slice(0,32)
             const account = await Keypair.fromSeed(seedBytes);
             const base58 = bs58.encode(account.secretKey)
             //console.log('public',account.publicKey.toString());
             //console.log('private', base58)
-            setAddress(account.publicKey.toString())
-            setPrivKey(base58)
+           
 
-            console.log(address);
-            console.log(privKey)
-            console.log(phrase)
+            
             const { data, error} = await Supabase
             .from('SolWallet')
-            .insert([{id:id,username:name,userAddress:account.publicKey,privateKey:base58,phrase:mnemonic}])
+            .insert([{id:'sddfsf',username:'sffg',userAddress:'accc',privateKey:'sf',phrase:'svzzf'}])
             .select()
             if(error) {
                 throw error
@@ -89,7 +85,7 @@ export const Create = () => {
        
         const {data ,error} = await Supabase
         .from('Wallets')
-        .insert([{id:id,username:name,address:userWallet.address,privateKey:userWallet.privateKey,phrase:userWallet.mnemonic.phrase}])
+        .insert([{id:'gfhfh',username:'fddds',address:userWallet.address,privateKey:userWallet.privateKey,phrase:userWallet.mnemonic.phrase}])
         .select()
         if(error) {
             setIsErrorM(true)
@@ -129,10 +125,7 @@ export const Create = () => {
         <div className="bg-gothic-950/0 mt-3 mb-8 flex items-center justify-center w-[100%] h-auto">
             <div className="bg-s-gray-300/0 w-[90%] px-10 flex flex-col items-center justify-center rounded-3xl h-[140px]">
                 <p className="text-2xl font-bold mb-6 text-gothic-950/85">{`inFuse Wallet`}</p>
-              {/**
-               *  <p className="text-[15px] font-extrabold text-center mt-4 text-gothic-950/85">{`Hi ${user?.initDataUnsafe?.user?.username} Create a new wallet or import an existing one`}</p>
-               * 
-               */} 
+                <p className="text-[15px] font-extrabold text-center mt-4 text-gothic-950/85">{`Hi ${user?.initDataUnsafe?.user?.username} Create a new wallet or import an existing one`}</p>
             </div>
         </div>
         <div className="bg-s-gray-300/0 w-[95%] ml-auto mr-auto mt-5 mb-20 px-2 flex flex-col items-center justify-center rounded-2xl h-auto">
