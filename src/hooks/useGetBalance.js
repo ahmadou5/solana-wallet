@@ -23,10 +23,11 @@ export const useGetUserBalance = () => {
   const [trx, setTrx] = useState(true);
   const id = user?.initDataUnsafe?.user?.id
   useEffect(() => {
-    const connection = new Connection('https://api.mainnet-beta.solana.com')
-    console.log('5555',connection)
+    
     const getUserSolBalance = async () => {
         try {
+          const connection = new Connection('https://api.mainnet-beta.solana.com')
+          console.log('5555',connection)
           const balance = await connection.getBalance(userAddress)
           console.log(balance, providerURL, "1 non  blnc");
           const formattedBalance = balance / LAMPORTS_PER_SOL;
