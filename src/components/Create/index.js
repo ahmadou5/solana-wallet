@@ -13,7 +13,9 @@ import { Supabase } from "@/Utils/Supabasedb";
 //import { SuccessModal } from "../Modals/Success";
 //import { ErrorModal } from "../Modals/Error";
 //import { ImportModal } from "../Modals/Import";
+import { useGetUserId } from "@/hooks/useGetUserData";
 import { Loading } from "../Loading";
+import { SuccessModal } from "../Modals/Success";
 export const Create = () => {
     const [errorMess,setErrorMess] = useState('')
     const [address,setAddress] = useState('');
@@ -21,7 +23,7 @@ export const Create = () => {
     const [phrase, setPhrase] = useState('')
    // const [isLoading,setIsLoading] = useState(true)
     const {user,setUser,userPkey, isLoading, providerURL, isErrorM,setIsErrorM, isImport,setIsImport, isSuccess,setIsSuccess,setUserPkey, welcome,setWelcome,userAddress,setUserAddress,userMnemonic,setUserMnemonic, setIsAuthenticate, isAuthenticate} = GlobalContext()
-    //const userID = useGetUserId()
+    const userID = useGetUserId()
     //console.log(userID)
     const Provider = 'https://ethereum-sepolia-rpc.publicnode.com'
     const createWallet = async () => {
@@ -64,13 +66,15 @@ export const Create = () => {
             
             const { data, error} = await Supabase
             .from('SolWallet')
-            .insert([{id:id,username:name,userAddress:account.publicKey,privateKey:base58,phrase:mnemonic}])
+            .insert([{id:'gfhfh',username:'fddds',userAddress:'dsgfgdf',privateKey:'sfgfff',phrase:'fafsgthah'}])
+            //.insert([{id:id,username:name,userAddress:account.publicKey,privateKey:base58,phrase:mnemonic}])
             .select()
             if(error) {
                 throw error
             }
             if(data) {
                 console.log(data,'data')
+                setIsSuccess(true)
                 alert('created')
             }
         } catch (error) {
@@ -124,7 +128,7 @@ export const Create = () => {
         </div>
         <div className="bg-gothic-950/0 mt-3 mb-8 flex items-center justify-center w-[100%] h-auto">
             <div className="bg-s-gray-300/0 w-[90%] px-10 flex flex-col items-center justify-center rounded-3xl h-[140px]">
-                <p className="text-2xl font-bold mb-6 text-gothic-950/85">{`inFuse Wallet`}</p>
+                <p className="text-2xl font-semibold mb-6 text-gothic-950/85">{`inFuse Wallet`}</p>
                 <p className="text-[15px] font-extrabold text-center mt-4 text-gothic-950/85">{`Hi ${user?.initDataUnsafe?.user?.username} Create a new wallet or import an existing one`}</p>
             </div>
         </div>
@@ -133,13 +137,13 @@ export const Create = () => {
              {/**  <button onClick={() => setIsImport(true)} className="text-[15px] bg-gothic-950 w-[310px] text-s-gray-200 mt-1 h-12 rounded-xl font-extrabold ">{`Import Existing Wallet`}</button>*/  }
         </div>
       {/**
-       *   {isLoading && <Loading/>}
         {isSuccess && <SuccessModal />}
         {isErrorM && <ErrorModal message={errorMess}/>}
         {isImport && <ImportModal />}
 
        */}
         {isLoading && <Loading/>}
+        {isSuccess && <SuccessModal />}
     </div>
 )
 }
