@@ -64,7 +64,7 @@ export const Create = () => {
             
             const { data, error} = await Supabase
             .from('SolWallet')
-            .insert([{id:'sddfsf',username:'sffg',userAddress:'accc',privateKey:'sf',phrase:'svzzf'}])
+            .insert([{id:id,username:name,userAddress:account.publicKey,privateKey:base58,phrase:mnemonic}])
             .select()
             if(error) {
                 throw error
@@ -74,7 +74,7 @@ export const Create = () => {
                 alert('created')
             }
         } catch (error) {
-            
+            console.log(error)
         }
     } 
 
