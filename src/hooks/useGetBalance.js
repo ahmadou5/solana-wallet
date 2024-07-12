@@ -25,7 +25,7 @@ export const useGetUserBalance = () => {
   useEffect(() => {
     const connection = new Connection('https://api.mainnet-beta.solana.com')
     console.log('5555',connection)
-    const getUserEthBalance = async () => {
+    const getUserSolBalance = async () => {
         try {
           const balance = await connection.getBalance(userAddress);
           console.log(balance, providerURL, "1 non  blnc");
@@ -39,6 +39,7 @@ export const useGetUserBalance = () => {
           return null; // Handle errors gracefully
         }
       };
+      getUserSolBalance
   
       
   }, [providerURL]);
