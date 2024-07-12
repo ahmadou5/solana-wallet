@@ -119,7 +119,7 @@ export const Create = () => {
    
     return(
     <div className="w-[100%] py-2 px-1 h-auto bg-red-400/0">
-        <div className="bg-gothic-950/0 mt-[80px] mb-[30px] flex items-center justify-center w-[100%] h-auto">
+        <div className="bg-gothic-950/0 mt-[60px] mb-[30px] flex items-center justify-center w-[100%] h-auto">
             <img src="./assets/show.png" className="w-[320px] h-[320px]" />
         </div>
         <div className="bg-gothic-950/0 mt-3 mb-8 flex items-center justify-center w-[100%] h-auto">
