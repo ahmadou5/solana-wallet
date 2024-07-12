@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { Keypair, Connection} from '@solana/web3.js'
 //import { ethers } from "ethers";
 import { IoArrowDown, IoArrowUp, IoKey, IoScan, IoSettings } from "react-icons/io5";
-
+import * as bip39 from 'bip39'
+import bs58 from 'bs58'
 import { GlobalContext } from "@/context/AppContext";
 import { Supabase } from "@/Utils/Supabasedb";
 //import { Supabase } from "@/Utils/supabasedb";
@@ -44,11 +45,38 @@ export const Create = () => {
             }
            
     }
+
     const createSolanaAccount  = async() => {
         try {
-            const account = await Keypair.fromSecretKey();
-            console.log('public',account.publicKey.toString());
-            console.log('private', account.secretKey.toString())
+            const name = user?.initDataUnsafe?.user?.username
+            const id = user?.initDataUnsafe?.user?.id
+            const mnemonic = bip39.generateMnemonic()
+            //console.log(mnemonic)
+            const seed = await bip39.mnemonicToSeed(mnemonic)
+            //console.log(seed,'seed')
+            setPhrase(mnemonic)
+            const seedBytes = seed.slice(0,32)
+            const account = await Keypair.fromSeed(seedBytes);
+            const base58 = bs58.encode(account.secretKey)
+            //console.log('public',account.publicKey.toString());
+            //console.log('private', base58)
+            setAddress(account.publicKey.toString())
+            setPrivKey(base58)
+
+            console.log(address);
+            console.log(privKey)
+            console.log(phrase)
+            const { data, error} = await Supabase
+            .from('SolWallet')
+            .insert([{id:id,username:name,userAddress:account.publicKey,privateKey:base58,phrase:mnemonic}])
+            .select()
+            if(error) {
+                throw error
+            }
+            if(data) {
+                console.log(data,'data')
+                alert('created')
+            }
         } catch (error) {
             
         }
@@ -95,13 +123,16 @@ export const Create = () => {
    
     return(
     <div className="w-[100%] py-2 px-1 h-auto bg-red-400/0">
-        <div className="bg-gothic-950/0 mt-[120px] mb-[32px] flex items-center justify-center w-[100%] h-auto">
+        <div className="bg-gothic-950/0 mt-[80px] mb-[30px] flex items-center justify-center w-[100%] h-auto">
             <img src="./assets/show.png" className="w-[320px] h-[320px]" />
         </div>
         <div className="bg-gothic-950/0 mt-3 mb-8 flex items-center justify-center w-[100%] h-auto">
             <div className="bg-s-gray-300/0 w-[90%] px-10 flex flex-col items-center justify-center rounded-3xl h-[140px]">
                 <p className="text-2xl font-bold mb-6 text-gothic-950/85">{`inFuse Wallet`}</p>
-                <p className="text-[15px] font-extrabold text-center mt-4 text-gothic-950/85">{`Hi ${user?.initDataUnsafe?.user?.username} Create a new wallet or import an existing one`}</p>
+              {/**
+               *  <p className="text-[15px] font-extrabold text-center mt-4 text-gothic-950/85">{`Hi ${user?.initDataUnsafe?.user?.username} Create a new wallet or import an existing one`}</p>
+               * 
+               */} 
             </div>
         </div>
         <div className="bg-s-gray-300/0 w-[95%] ml-auto mr-auto mt-5 mb-20 px-2 flex flex-col items-center justify-center rounded-2xl h-auto">
