@@ -26,7 +26,7 @@ export const useGetUserBalance = () => {
     
     const getUserSolBalance = async () => {
         try {
-          const connection = new Connection('https://api.mainnet-beta.solana.com')
+          const connection = new Connection(providerURL)
           console.log('5555',connection)
           const balance = await connection.getBalance(userAddress)
           console.log(balance, providerURL, "1 non  blnc");

@@ -12,7 +12,7 @@ export const MiniContextProvider = ({children}) => {
     const [providerURL,setProviderURL] = useState('https://api.mainnet-beta.solana.com')
     const [providerName,setProviderName] = useState('Mainnet')
     const [providerTick,setProviderTick] = useState('SOL')
-    const [providerImg,setProviderImg] = useState('./assets/sol.png')
+    const [providerImg,setProviderImg] = useState('./assets/5426.png')
     const [isChainList,setIsChainList] = useState(false)
     const [history, setHistory] = useState(null);
     const [tokens,setTokens] = useState(null)
@@ -56,7 +56,7 @@ export const MiniContextProvider = ({children}) => {
     const [isSend,setIsSend] = useState(false)
     const [isReceive,setIsReceive] = useState(false)
     const [isScan,setIsScan] = useState(false)
-    const [isAuthenticate,setIsAuthenticate] = useState(true)
+    const [isAuthenticate,setIsAuthenticate] = useState(false)
     const [user,setUser ] = useState(null);
     const [userAddress,setUserAddress] = useState('')
     const [userName, setUserName] = useState('')

@@ -16,7 +16,7 @@ export const ChainSelector = () => {
         },
         {
             name: 'Testnet',
-            providerUrl: 'https://ethereum-sepolia-rpc.publicnode.com',
+            providerUrl: 'https://api.testnet.solana.com',
             imgUrl: './assets/5426.png',
             Tick: 'Solana',
             scan: 'sepolia.etherscan.io',
@@ -24,7 +24,7 @@ export const ChainSelector = () => {
         },
         {
             name: 'Devnet',
-            providerUrl: 'https://ethereum-sepolia-rpc.publicnode.com',
+            providerUrl: 'https://api.devnet.solana.com',
             imgUrl: './assets/5426.png',
             Tick: 'Solana',
             scan: 'sepolia.etherscan.io',
