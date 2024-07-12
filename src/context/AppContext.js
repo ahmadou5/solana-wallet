@@ -33,6 +33,7 @@ export const MiniContextProvider = ({children}) => {
     const [isWallet,setIsWallet] = useState(true)
     const [isTokens,setIsTokens] = useState(false)
     const [isHistory,setIsHistory] = useState(false)
+    const [isSwap,setIsSwap] = useState(false)
     const [one,setOne] = useState('')
     const [two,setTwo] = useState('')
     const [three,setThree] = useState('')
@@ -55,14 +56,14 @@ export const MiniContextProvider = ({children}) => {
     const [isSend,setIsSend] = useState(false)
     const [isReceive,setIsReceive] = useState(false)
     const [isScan,setIsScan] = useState(false)
-    const [isAuthenticate,setIsAuthenticate] = useState(true)
+    const [isAuthenticate,setIsAuthenticate] = useState(false)
     const [user,setUser ] = useState(null);
     const [userAddress,setUserAddress] = useState('')
     const [userName, setUserName] = useState('')
     const [userPkey,setUserPkey] = useState('')
     const [userMnemonic,setUserMnemonic] = useState(null)
     const [welcome,setWelcome] = useState(false)
-    const [isLoading,setIsLoading] = useState(true)
+    const [isLoading,setIsLoading] = useState(false)
    const value = {
     user,
     userAddress,
@@ -121,6 +122,8 @@ export const MiniContextProvider = ({children}) => {
     scan,
     isFaucet,
     isTokenInfo,
+    isSwap,
+    setIsSwap,
     setIsTokenInfo,
     setIsFaucet,
     setScan,

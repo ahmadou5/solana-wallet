@@ -16,6 +16,7 @@ export const Menu = () => {
    
    const {
     isWallet,
+    isSwap,setIsSwap,
     isTokens,
     isHistory,
     setIsHistory,
@@ -65,28 +66,29 @@ export const Menu = () => {
           <div className="lg:py-2.5 py-1.5 lg:px-2.5 px-1.5  mt-auto mb-auto ml-auto mr-auto w-[98%] flex flex-row  h-[90%]">
             <div onClick={() => {
               setIsHistory(false)
-              setIsTokens(false)
+              setIsSwap(false)
               setIsWallet(true)
             }} className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
                 <IoWallet size={28} className={`${ isWallet ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
                 {isWallet && <p className={`font-light ${isWallet ? 'text-[#448cff]' : 'text-gothic-200'} ${isWallet && 'mt-1'} text-[12px]`}>Wallet</p>}
             </div>
+            
+            <div onClick={() => {
+              setIsHistory(false)
+              setIsSwap(true)
+              setIsWallet(false)
+            }} className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
+                <MdSwapHoriz size={28} className={`${ isSwap ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
+                {isSwap && <p className={`font-light ${isSwap ? 'text-[#448cff]' : 'text-gothic-200'} ${isSwap && 'mt-1'} text-[12px]`}>Swap</p>}
+            </div>
             <div onClick={() => {
               setIsHistory(true)
-              setIsTokens(false)
+              setIsSwap(false)
               setIsWallet(false)
             }}
              className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
-                <MdSwapHoriz size={28} className={`${ isHistory ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
-                {isHistory && <p className={`font-light ${isHistory ? 'text-[#448cff]' : 'text-gothic-200'} ${isHistory && 'mt-1'} text-[12px]`}>Swap</p>}
-            </div>
-            <div onClick={() => {
-              setIsHistory(false)
-              setIsTokens(true)
-              setIsWallet(false)
-            }} className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
-                <IoSettings size={28} className={`${ isTokens ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
-                {isTokens && <p className={`font-light ${isTokens ? 'text-[#448cff]' : 'text-gothic-200'} ${isTokens && 'mt-1'} text-[12px]`}>Settings</p>}
+                <IoFlash size={28} className={`${ isHistory ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
+                {isHistory && <p className={`font-light ${isHistory ? 'text-[#448cff]' : 'text-gothic-200'} ${isHistory && 'mt-1'} text-[12px]`}>History</p>}
             </div>
           </div>          
         </div>

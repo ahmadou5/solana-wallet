@@ -30,7 +30,8 @@ import { Supabase } from "@/Utils/Supabasedb";
 //import { useGetUserBalance } from "@/hooks/useFetch";
 //import { FaucetModal } from "../Modals/FaucetModal";
 //import { TokenInfoModal } from "../Modals/TokenModal";
-
+import { Loading } from "../Loading";
+import { ChainSelector } from "../Modals/ChainSelectModal";
 export const Home2 = () => {
   const {
     user,
@@ -72,7 +73,7 @@ export const Home2 = () => {
     },
 
   ]
-  const { isSend, isReceive, isScan, isFaucet,setIsFaucet, setIsScan, hDate,setHDate, isPrivate,setIsPrivate, hHash,setHHash, isPhrase,setIsPhrase, hAmount,setHAmount, hReceiver,setHReceiver,hSender,setHSender, hIsSend,setHIsSend, setIsReceive, setIsSend } =
+  const { isSend, isReceive, isScan, isFaucet,setIsFaucet, setIsScan,isLoading, hDate,setHDate, isPrivate,setIsPrivate, hHash,setHHash, isPhrase,setIsPhrase, hAmount,setHAmount, hReceiver,setHReceiver,hSender,setHSender, hIsSend,setHIsSend, setIsReceive, setIsSend } =
     GlobalContext();
     
  
@@ -205,13 +206,13 @@ export const Home2 = () => {
       {isWallet && (
         <>
           <div className="bg-gothic-950/0 mt-1 flex  mb-2 flex-col items-center justify-center w-[100%] h-auto">
-            <div className="mt-1 mb-20 w-full flex">
-             <div  className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-auto mr-[45px] w-[51%] h-9">
+            <div className="mt-1 mb-10 w-full flex">
+             <div onClick={() => setIsChainList(true)} className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-auto mr-[45px] w-[51%] h-9">
              <img src='./assets/5426.png' className="mr-1 w-6 h-6 rounded-full"/>
               <div>{'Devnet'}</div>
               <MdKeyboardArrowDown className="text-2xl text-[#448cff]/45 ml-auto mr-1 mb-2" />
              </div>
-             <div className="w-11 p-2 mr-3 flex items-center justify-center rounded-full bg-[#448cff]/45">
+             <div className="w-11 p-2 mr-1.5 flex items-center justify-center rounded-full bg-[#448cff]/45">
                 <IoSettings className="" size={28}/>
              </div>
             </div>
@@ -323,6 +324,9 @@ export const Home2 = () => {
       <div className="mt-auto mb-auto">
         <Menu />
       </div>
+      {isChainList && <ChainSelector/>} 
+      
+
       {/**
        * 
        * 
