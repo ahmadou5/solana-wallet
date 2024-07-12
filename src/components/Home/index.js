@@ -33,6 +33,7 @@ import { Supabase } from "@/Utils/Supabasedb";
 import { Loading } from "../Loading";
 import { ChainSelector } from "../Modals/ChainSelectModal";
 import { useGetUserBalance } from "@/hooks/useGetBalance";
+import { useGetUserId } from "@/hooks/useGetUserData";
 export const Home2 = () => {
   const {
     user,
@@ -77,7 +78,9 @@ export const Home2 = () => {
     return x * y;
   };
   const bal = useGetUserBalance()
-  console.log(bal)
+  
+  const data = useGetUserId()
+  console.log(bal,data)
   useEffect(() => {
     const getUserTransaction = async () => {
       const { data, error } = await Supabase.from("SolHistory")
