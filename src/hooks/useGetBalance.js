@@ -27,7 +27,7 @@ export const useGetUserBalance = () => {
     console.log('5555',connection)
     const getUserSolBalance = async () => {
         try {
-          const balance = await connection.getBalance(userAddress);
+          const balance = await connection.getBalance(userAddress)
           console.log(balance, providerURL, "1 non  blnc");
           const formattedBalance = balance / LAMPORTS_PER_SOL;
           console.log("User ETH balance:", formattedBalance);
