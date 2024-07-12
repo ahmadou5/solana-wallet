@@ -32,6 +32,7 @@ import { Supabase } from "@/Utils/Supabasedb";
 //import { TokenInfoModal } from "../Modals/TokenModal";
 import { Loading } from "../Loading";
 import { ChainSelector } from "../Modals/ChainSelectModal";
+import { useGetUserBalance } from "@/hooks/useGetBalance";
 export const Home2 = () => {
   const {
     user,
@@ -80,9 +81,11 @@ export const Home2 = () => {
   const multiple = (x, y) => {
     return x * y;
   };
+  const bal = useGetUserBalance()
+  console.log(bal)
   useEffect(() => {
     const getUserTransaction = async () => {
-      const { data, error } = await Supabase.from("NewHistory")
+      const { data, error } = await Supabase.from("SolHistory")
         .select("*")
         .eq("id", user?.initDataUnsafe?.user?.id);
 
