@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaHandHoldingWater } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
+import bs58 from 'bs58'
 import {
   IoArrowDown,
   IoArrowForward,
@@ -83,7 +84,7 @@ export const Home2 = () => {
     const fetchBalance = async () => {
       const connection = new Connection(providerURL); // Replace with desired cluster
       console.log(connection,'daganan')
-      const balance1 = await connection.getBalance('5qMocXd8GWYVqU3SJYtAsYmCJaHkniNjAfitkxqP6uez');
+      const balance1 = await connection.getBalance(bs58.decode(userAddress));
       console.log(balance1.toString(),'12346')
       setEthBalance(balance1/LAMPORTS_PER_SOL)
      
