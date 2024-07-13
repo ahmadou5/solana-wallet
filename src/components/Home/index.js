@@ -79,7 +79,8 @@ export const Home2 = () => {
   const multiple = (x, y) => {
     return x * y;
   };
-  
+  const bal = useGetUserBalance()
+  console.log(bal)
   useEffect(() => {
     const fetchBalance = async () => {
       const connection = new Connection(providerURL); // Replace with desired cluster
