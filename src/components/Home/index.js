@@ -37,6 +37,7 @@ import { Loading } from "../Loading";
 import { ChainSelector } from "../Modals/ChainSelectModal";
 import useSolanaBalance, { useGetUserBalance } from "@/hooks/useGetBalance";
 import { useGetUserId } from "@/hooks/useGetUserData";
+import { ReceiveModal } from "../Modals/ReceiveModal";
 export const Home2 = () => {
   const {
     user,
@@ -240,7 +241,7 @@ export const Home2 = () => {
                 <p className="text-sm mt-2.5 text-[#448cff]/55 font-light ">Send</p>
               </div>
               <div
-               
+                onClick={() => setIsReceive(true)}
                 className="text-3xl  bg-white/10 flex flex-col items-center justify-center rounded-3xl h-20 w-20 ml-auto mr-auto  text-white/60"
               >
                 <IoAdd className="text-3xl font-bold text-[#448cff]/55" />
@@ -330,6 +331,7 @@ export const Home2 = () => {
       </div>
       {isChainList && <ChainSelector/>} 
       {isSend && <SendModal/>}
+      {isReceive && <ReceiveModal />}
 
       {/**
        * 
