@@ -25,7 +25,6 @@ export const useGetUserBalance = () => {
   useEffect(() => {
     
     const getUserSolBalance = async () => {
-        try {
           const connection = new Connection(providerURL)
           console.log('5555',connection)
           const balance = await connection.getBalance(userAddress)
@@ -35,10 +34,6 @@ export const useGetUserBalance = () => {
           setTrx(true) 
           setEthBalance(formattedBalance);
           return formattedBalance;
-        } catch (error) {
-          console.error("Error fetching ETH balance:", error);
-          return null; // Handle errors gracefully
-        }
       };
       getUserSolBalance
   
@@ -70,20 +65,12 @@ const useSolanaBalance = () => {
 
   useEffect(() => {
     const fetchBalance = async () => {
-    
-
-      try {
         const connection = new Connection(providerURL); // Replace with desired cluster
-        
-
         const balance1 = await connection.getBalance(userAddress);
         setEthBalance(balance1/LAMPORTS_PER_SOL)
         setBalance(balance1)
         console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
-      } catch (error) {
-        setError(error);
-        console.error('Error fetching balance:', error);
-      }
+      
     };
 
     fetchBalance();
