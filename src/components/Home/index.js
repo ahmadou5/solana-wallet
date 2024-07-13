@@ -12,6 +12,7 @@ import {
   IoSettings,
   IoAdd
 } from "react-icons/io5";
+import { Connection , LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { Menu } from "../Menu";
 import { MdSwapHoriz } from "react-icons/md";
 //import { SendModal } from "../Modals/SendModal";
@@ -79,7 +80,18 @@ export const Home2 = () => {
   };
   
   useEffect(() => {
+    const fetchBalance = async () => {
+      const connection = new Connection(providerURL); // Replace with desired cluster
+      console.log(connection)
+      const balance1 = await connection.getBalance('5qMocXd8GWYVqU3SJYtAsYmCJaHkniNjAfitkxqP6uez');
+      console.log(balance1)
+      setEthBalance(balance1/LAMPORTS_PER_SOL)
+     
+      console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
     
+  };
+
+  fetchBalance();
     const getUserTransaction = async () => {
       const { data, error } = await Supabase.from("SolHistory")
         .select("*")
