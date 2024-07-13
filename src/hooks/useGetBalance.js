@@ -25,7 +25,7 @@ export const useGetUserBalance = () => {
   useEffect(() => {
     
     const fetchBalance = async () => {
-      const connection = await new Connection(clusterApiUrl(cluster),'confirmed'); // Replace with desired cluster
+      const connection = new Connection(clusterApiUrl(cluster),'confirmed'); // Replace with desired cluster
       console.log(connection,'daganan')
       const balance1 = await connection.getBalance(new PublicKey(userAddress));
       console.log(balance1.toString(),'12346')

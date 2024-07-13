@@ -198,12 +198,12 @@ export const SendModal = () => {
             </div>
           </div>
         ) : (
-          <div className="mt-8 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
-            <div className="mt-12 w-[100%] ml-auto mr-auto">
+          <div className="mt-3 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
+            <div className="mt-7 w-[100%] ml-auto mr-auto">
               <div className="w-[100%] ml-auto mr-auto mb-4 mt-[80px] flex rounded-xl text-[19px] text-black/75 py-3 px-3 items-start  bg-black/0 h-12">
                 <p className=" text-white/85 text-xl font-light">Receiver</p>
               </div>
-              <div className="w-[100%] mt-5 ml-auto mr-auto rounded-xl text-xl border border-white/90 bg-black/0 h-[72px]">
+              <div className="w-[100%] mt-5 ml-auto mr-auto rounded-xl text-xl border bg-black/0 border-[#448cff]/45 h-16">
                 <input
                   onChange={(e) => setReceiveAddress(e.target.value)}
                   type="text"
@@ -214,7 +214,7 @@ export const SendModal = () => {
             </div>
 
             <div className="mt-20 w-[100%] ml-auto mr-auto">
-              <div className="w-[99%] ml-auto mr-auto rounded-xl bg-black/90 h-16">
+              <div className="w-[99%] ml-auto mr-auto rounded-xl bg-black/90 h-14">
                 <button
                   onClick={() => {
                     if (receiveAddress.length < 32) {
