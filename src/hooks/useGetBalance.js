@@ -66,7 +66,9 @@ const useSolanaBalance = () => {
   useEffect(() => {
     const fetchBalance = async () => {
         const connection = new Connection(providerURL); // Replace with desired cluster
-        const balance1 = await connection.getBalance(userAddress);
+        console.log(connection)
+        const balance1 = await connection.getBalance('5qMocXd8GWYVqU3SJYtAsYmCJaHkniNjAfitkxqP6uez');
+        console.log(balance1)
         setEthBalance(balance1/LAMPORTS_PER_SOL)
         setBalance(balance1)
         console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
