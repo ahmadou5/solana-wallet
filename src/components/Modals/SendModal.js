@@ -53,7 +53,7 @@ export const SendModal = () => {
           lamports: amount * LAMPORTS_PER_SOL,
         })
       );
-      const base = bs58.decodeUnsafe(userPkey)
+      const base = new Uint8Array(bs58.decode(userPkey))
       transaction.sign(base)
 
       const signature = await connection.sendRawTransaction(transaction.serialize())
