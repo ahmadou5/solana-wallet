@@ -13,7 +13,7 @@ import {
   IoSettings,
   IoAdd
 } from "react-icons/io5";
-import { Connection , LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { Connection , LAMPORTS_PER_SOL, clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { Menu } from "../Menu";
 import { MdSwapHoriz } from "react-icons/md";
 //import { SendModal } from "../Modals/SendModal";
@@ -83,7 +83,7 @@ export const Home2 = () => {
   console.log(bal)
   useEffect(() => {
     const fetchBalance = async () => {
-      const connection = new Connection(providerURL); // Replace with desired cluster
+      const connection = new Connection(clusterApiUrl('mainnet-beta')); // Replace with desired cluster
       console.log(connection,'daganan')
       const balance1 = await connection.getBalance(new PublicKey(userAddress));
       console.log(balance1.toString(),'12346')
