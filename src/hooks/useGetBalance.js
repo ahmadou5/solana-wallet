@@ -73,10 +73,10 @@ const useSolanaBalance = () => {
     
 
       try {
-        const connection = new Connection('https://api.mainnet-beta.solana.com'); // Replace with desired cluster
+        const connection = new Connection(providerURL); // Replace with desired cluster
         
 
-        const balance1 = await connection.getBalance('HtWFw7aUbTr9aYxNPP98EUbXyqj6PY5cXNGYdNgz1bhv');
+        const balance1 = await connection.getBalance(userAddress);
         setEthBalance(balance1/LAMPORTS_PER_SOL)
         setBalance(balance1)
         console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
