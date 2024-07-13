@@ -176,7 +176,7 @@ export const SendModal = () => {
                   <button
                     onClick={() => {
                       if (receiveAddress !== "" && amount > 0) {
-                       handleSendSol
+                       handleSendSol()
                       }
                     }}
                     className="outline-none bg-transparent w-[100%] h-[100%] text-white  py-2 px-4"
