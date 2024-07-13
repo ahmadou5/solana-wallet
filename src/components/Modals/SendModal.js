@@ -1,7 +1,7 @@
 "use client";
 import { GlobalContext } from "@/context/AppContext";
 import { useState } from "react";
-import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, LAMPORTS_PER_SOL, Keypair, } from "@solana/web3.js";
 import { TransactionSuccessModal } from "./TransactionSuccess";
 import { formatAddress } from "@/Utils/format";
 //import { c formatAddress } from "@/Utils/format"
@@ -11,6 +11,7 @@ import { formatAddress } from "@/Utils/format";
 //import { Supabase } from "@/Utils/supabasedb"
 import { SpinningCircles } from "react-loading-icons"
 import { FailedTxModal } from "./TransactionFailed";
+import bs58 from 'bs58'
 //import { useGetUserId } from "@/hooks/useGetUserId"
 export const SendModal = () => {
   const [loading, setIsLoading] = useState(false);
@@ -52,7 +53,7 @@ export const SendModal = () => {
           lamports: amount * LAMPORTS_PER_SOL,
         })
       );
-      transaction.sign(userPkey)
+      transaction.sign(bs58.decode(userPkey))
 
       const signature = await connection.sendRawTransaction(transaction.serialize())
       await connection.confirmTransaction(signature)
