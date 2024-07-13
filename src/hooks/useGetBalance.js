@@ -65,7 +65,7 @@ const useSolanaBalance = () => {
         setIsTxSuccess,
         user,
       } = GlobalContext();
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
