@@ -77,11 +77,9 @@ export const Home2 = () => {
   const multiple = (x, y) => {
     return x * y;
   };
-  const bal = useGetUserBalance()
-  const bal2 = useSolanaBalance()
-    const data = useGetUserId()
-  console.log(bal,data,bal2)
+  
   useEffect(() => {
+    
     const getUserTransaction = async () => {
       const { data, error } = await Supabase.from("SolHistory")
         .select("*")
@@ -134,6 +132,10 @@ export const Home2 = () => {
    
     
   }, []);
+  const bal = useGetUserBalance()
+  const bal2 = useSolanaBalance()
+  const data = useGetUserId()
+  console.log(bal,data,bal2)
   
   return (
     <div className="w-[100%] py-2 px-1 h-auto bg-red-400/0">

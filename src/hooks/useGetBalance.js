@@ -89,7 +89,7 @@ const useSolanaBalance = () => {
     fetchBalance();
   }, [providerURL]);
 
-  return { balance, error };
+  return { balance, ethBalance, error };
 };
 
 export default useSolanaBalance;
