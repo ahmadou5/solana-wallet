@@ -65,12 +65,12 @@ const useSolanaBalance = () => {
         setIsTxSuccess,
         user,
       } = GlobalContext();
-  const [balance, setBalance] = useState(null);
+  const [balance, setBalance] = useState(0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchBalance = async () => {
-      if (!wallet.connected) return;
+    
 
       try {
         const connection = new Connection('https://api.mainnet-beta.solana.com'); // Replace with desired cluster
