@@ -76,9 +76,10 @@ const useSolanaBalance = () => {
         const connection = new Connection('https://api.mainnet-beta.solana.com'); // Replace with desired cluster
         
 
-        const balance = await connection.getBalance('HtWFw7aUbTr9aYxNPP98EUbXyqj6PY5cXNGYdNgz1bhv');
-        
-        console.log(balance/LAMPORTS_PER_SOL,'balanaceess')
+        const balance1 = await connection.getBalance('HtWFw7aUbTr9aYxNPP98EUbXyqj6PY5cXNGYdNgz1bhv');
+        setEthBalance(balance1/LAMPORTS_PER_SOL)
+        setBalance(balance1)
+        console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
       } catch (error) {
         setError(error);
         console.error('Error fetching balance:', error);
