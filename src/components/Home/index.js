@@ -82,9 +82,9 @@ export const Home2 = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       const connection = new Connection(providerURL); // Replace with desired cluster
-      console.log(connection)
+      console.log(connection,'daganan')
       const balance1 = await connection.getBalance('5qMocXd8GWYVqU3SJYtAsYmCJaHkniNjAfitkxqP6uez');
-      console.log(balance1)
+      console.log(balance1.toString(),'12346')
       setEthBalance(balance1/LAMPORTS_PER_SOL)
      
       console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
@@ -144,10 +144,7 @@ export const Home2 = () => {
    
     
   }, []);
-  const bal = useGetUserBalance()
-  const bal2 = useSolanaBalance()
-  const data = useGetUserId()
-  console.log(bal,data,bal2)
+  
   
   return (
     <div className="w-[100%] py-2 px-1 h-auto bg-red-400/0">
