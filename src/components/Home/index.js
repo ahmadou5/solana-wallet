@@ -82,18 +82,7 @@ export const Home2 = () => {
   const bal = useGetUserBalance()
   console.log(bal)
   useEffect(() => {
-    const fetchBalance = async () => {
-      const connection = await new Connection(clusterApiUrl('devnet'),'confirmed'); // Replace with desired cluster
-      console.log(connection,'daganan')
-      const balance1 = await connection.getBalance(new PublicKey(userAddress));
-      console.log(balance1.toString(),'12346')
-      setEthBalance(balance1/LAMPORTS_PER_SOL)
-     
-      console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
     
-  };
-
-  fetchBalance();
     const getUserTransaction = async () => {
       const { data, error } = await Supabase.from("SolHistory")
         .select("*")

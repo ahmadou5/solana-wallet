@@ -23,22 +23,22 @@ export const useGetUserBalance = () => {
   
   useEffect(() => {
     
-    const getUserSolBalance = async () => {
-          const connection = new Connection(clusterApiUrl('mainnet-beta'),'confirmed')
-          console.log('5555',connection)
-          const balance = await connection.getBalance(new PublicKey(userAddress))
-          console.log(balance, providerURL, "1 non  blnc");
-          const formattedBalance = balance / LAMPORTS_PER_SOL;
-          console.log("User ETH balance:", formattedBalance);
-          setTrx(true) 
-          setEthBalance(formattedBalance);
-          return formattedBalance;
-      };
-      getUserSolBalance
+    const fetchBalance = async () => {
+      const connection = await new Connection(clusterApiUrl('devnet'),'confirmed'); // Replace with desired cluster
+      console.log(connection,'daganan')
+      const balance1 = await connection.getBalance(new PublicKey(userAddress));
+      console.log(balance1.toString(),'12346')
+      setEthBalance(balance1/LAMPORTS_PER_SOL)
+     
+      console.log(balance1/LAMPORTS_PER_SOL,'balanaceess')
+    
+  };
+
+  fetchBalance();
   
       
   }, [providerURL]);
-  return true;
+  return ethBalance;
 };
 
 
