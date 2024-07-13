@@ -46,3 +46,49 @@ export const useGetUserBalance = () => {
   }, [providerURL]);
   return trx;
 };
+
+
+
+
+const useSolanaBalance = () => {
+    const {
+        setIsSend,
+        userPkey,
+        ethPrice,
+        ethBalance,
+        setEthBalance,
+        userAddress,
+        providerURL,
+        isTxFail,
+        setIsTxFail,
+        isTxSuccess,
+        setIsTxSuccess,
+        user,
+      } = GlobalContext();
+  const [balance, setBalance] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (!wallet.connected) return;
+
+      try {
+        const connection = new Connection('https://api.mainnet-beta.solana.com'); // Replace with desired cluster
+        
+
+        const balance = await connection.getBalance(userAddress);
+        setBalance(balance / LAMPORTS_PER_SOL);
+        console.log(balance,'balanaceess')
+      } catch (error) {
+        setError(error);
+        console.error('Error fetching balance:', error);
+      }
+    };
+
+    fetchBalance();
+  }, [providerURL]);
+
+  return { balance, error };
+};
+
+export default useSolanaBalance;

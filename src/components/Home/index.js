@@ -32,7 +32,7 @@ import { Supabase } from "@/Utils/Supabasedb";
 //import { TokenInfoModal } from "../Modals/TokenModal";
 import { Loading } from "../Loading";
 import { ChainSelector } from "../Modals/ChainSelectModal";
-import { useGetUserBalance } from "@/hooks/useGetBalance";
+import useSolanaBalance, { useGetUserBalance } from "@/hooks/useGetBalance";
 import { useGetUserId } from "@/hooks/useGetUserData";
 export const Home2 = () => {
   const {
@@ -78,9 +78,9 @@ export const Home2 = () => {
     return x * y;
   };
   const bal = useGetUserBalance()
-  
-  const data = useGetUserId()
-  console.log(bal,data)
+  const bal2 = useSolanaBalance()
+    const data = useGetUserId()
+  console.log(bal,data,bal2)
   useEffect(() => {
     const getUserTransaction = async () => {
       const { data, error } = await Supabase.from("SolHistory")
