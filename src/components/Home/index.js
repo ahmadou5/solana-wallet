@@ -284,7 +284,7 @@ export const Home2 = () => {
               </div>
               <div className="ml-[5px] text-white/85 mr-auto px-3">
                 <p className="text-sm font-bold mb-1">{'Solana'}</p>
-                <p className="text-sm">{`${bal} SOL`}</p>
+                <p className="text-sm">{`${ethBalance} SOL`}</p>
               </div>
               <div className="ml-[10px]  text-white/85 mr-4 px-3">
                 <p className="text-[15px] mb-1">
