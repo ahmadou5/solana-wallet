@@ -221,8 +221,8 @@ export const Home2 = () => {
             </div>
             <div className="bg-s-gray-300/0 w-[90%] flex items-center justify-center rounded-3xl h-[120px]">
               <p className="text-5xl font-bold text-white/85">{`$${multiple(
-               5,
-                600
+               ethPrice,
+               ethBalance
               )
                 .toString()
                 .slice(0, 6)}`}</p>
@@ -282,7 +282,7 @@ export const Home2 = () => {
                  {`$${ethPrice.toString().slice(0, 4)}`}
                 </p>
                 <p className="text-[15px] ">
-                {`$${multiple(ethPrice,5).toString().slice(0,4)}`}
+                {`$${multiple(ethPrice,ethBalance).toString().slice(0,4)}`}
                 </p>
               </div>
             </div>
