@@ -1,7 +1,7 @@
 "use client";
 import { GlobalContext } from "@/context/AppContext";
 import { useState } from "react";
-import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl } from "@solana/web3.js";
+import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { TransactionSuccessModal } from "./TransactionSuccess";
 import { formatAddress } from "@/Utils/format";
 //import { c formatAddress } from "@/Utils/format"
