@@ -1,13 +1,16 @@
 "use client";
 import { GlobalContext } from "@/context/AppContext";
 import { useState } from "react";
-import { Transaction, SystemProgram, PublicKey } from "@solana/web3.js";
-//import { chains, formatAddress } from "@/Utils/format"
-//import { ethers, parseUnits } from "ethers"
+import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl } from "@solana/web3.js";
 import { TransactionSuccessModal } from "./TransactionSuccess";
+import { formatAddress } from "@/Utils/format";
+//import { c formatAddress } from "@/Utils/format"
+//import { ethers, parseUnits } from "ethers"
+//import { TransactionSuccessModal } from "./TransactionSuccess";
 //import { FailedTxModal } from "./TransactionFailed"
 //import { Supabase } from "@/Utils/supabasedb"
-//import { SpinningCircles } from "react-loading-icons"
+import { SpinningCircles } from "react-loading-icons"
+import { FailedTxModal } from "./TransactionFailed";
 //import { useGetUserId } from "@/hooks/useGetUserId"
 export const SendModal = () => {
   const [loading, setIsLoading] = useState(false);
@@ -15,6 +18,7 @@ export const SendModal = () => {
     setIsSend,
     userPkey,
     ethPrice,
+    cluster,
     ethBalance,
     userAddress,
     providerURL,
@@ -30,40 +34,55 @@ export const SendModal = () => {
   const [comment, setComment] = useState("");
   const [failedcomment, setFailedComment] = useState("");
   const [amount, setAmount] = useState(0);
-  const Provider = new ethers.JsonRpcProvider(`${providerURL}`);
-  const wallet = new ethers.Wallet(userPkey, Provider);
+  
 
   const multiple = (x, y) => {
     return x * y;
   };
   const id = user?.initDataUnsafe?.user?.id;
-  const handleSentSol = async () => {
+  const handleSendSol = async () => {
     setIsLoading(true);
     try {
-      let transaction = new Transaction().add(
+      const connection = new Connection(clusterApiUrl(cluster),'confirmed')
+      const transaction = new Transaction()
+       transaction.add(
         SystemProgram.transfer({
           fromPubkey: new PublicKey(userAddress),
           toPubkey: new PublicKey(userAddress),
-          lamports: LAMPORTS_PER_SOL,
+          lamports: amount * LAMPORTS_PER_SOL,
         })
       );
-      transaction.feePayer = new PublicKey(userAddress);
-      let blockhashObj = await connection.getRecentBlockhash();
-      transaction.recentBlockhash = await blockhashObj.blockhash;
-      if (transaction) {
-        console.log("Txn created successfully");
-      } else {
-        console.log("Sorry");
-      }
-      const signedTransaction = await window.solana.signTransaction(
-        transaction
-      );
-      const signature = await connection.sendRawTransaction(
-        signedTransaction.serialize()
-      );
-      console.log("Signature: ", signature);
+      transaction.sign(userPkey)
+
+      const signature = await connection.sendRawTransaction(transaction.serialize())
+      await connection.confirmTransaction(signature)
+
+      console.log('trx confirnm',signature)
+      setComment(signature);
+      setIsTxSuccess(true);
+      setIsLoading(false);
+
+            // Update Supabase history only after successful mining
+            const { data, error } = await Supabase.from("NewHistory")
+            //.insert([{ id: id, sender: userAddress, receiver: receiveAddress, amount: amount, hash: signature, isSend: true, chain: providerName  }])
+            .select();
+    
+          if (data) {
+            console.log(data, "Transaction data saved to Supabase");
+          }
+    
+          if (error) {
+            console.error(error, "Error saving transaction to Supabase");
+          }
+      
+     
     } catch (error) {
       console.log(error);
+      console.error("Error sending sol:", error);
+      setFailedComment(error?.message);
+      setIsTxSuccess(false); // Set error state if transaction fails
+      setIsTxFail(true);
+      setIsLoading(false);
     }
   };
   const handleSendETH2 = async () => {
@@ -108,11 +127,11 @@ export const SendModal = () => {
 
   return (
     <div className="inset-0 fixed bg-black bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
-      <div className="w-[100%] py-4 px-4 bg-white/95 rounded-t-3xl h-auto mt-[70px]">
+      <div className="w-[100%] py-4 px-4 bg-white/20 rounded-t-3xl h-auto mt-[90px]">
         <div className="">
           <div
             onClick={() => setIsSend(false)}
-            className="w-20 rounded-xl text-white text-xl font-light flex items-center justify-center h-9 bg-black/85"
+            className="w-20 rounded-xl text-black text-xl font-light flex items-center justify-center h-9 bg-white/90"
           >
             <p>esc</p>
           </div>
@@ -120,22 +139,22 @@ export const SendModal = () => {
         {isConfirmed ? (
           <div className="mt-8 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
             <div className="w-[100%] h-12 bg-slate-50/0 rounded-xl py-3 px-6">
-              <p className="text-[19px] text-black font-light">{`to: ${formatAddress(
-                receiveAddress
-              )}`}</p>
+              <p className="text-[19px] text-white font-light">{`to: ${
+                formatAddress(receiveAddress)
+              }`}</p>
             </div>
             <div className="w-[98%] mt-4 ml-auto mr-auto h-[230px] py-3 px-2 flex flex-col items-center justify-center rounded-2xl bg-black/20">
-              <div className="w-[100%] ml-auto mr-auto text-black rounded-xl  flex  h-16">
+              <div className="w-[100%] ml-auto mr-auto text-white rounded-xl  flex  h-16">
                 <input
                   onChange={(e) => setAmount(e.target.value)}
                   type="text"
                   className="outline-none bg-transparent text-end text-3xl ml- w-[50%] h-[100%] "
                   value={amount}
                 />
-                <p className="mt-5 text-xl font-light ml-1 mr-auto">ETH</p>
+                <p className="mt-5 text-xl font-light ml-1 mr-auto">SOL</p>
               </div>
-              <div className="bg-black/0 rounded-2xl w-[120px] border border-black h-9">
-                <p className="text-black text-center py-1.5">
+              <div className="bg-black/0 rounded-2xl w-[120px] border border-white h-9">
+                <p className="text-white text-center py-1.5">
                   {multiple(ethPrice, amount).toString().slice(0, 6)}
                 </p>
               </div>
@@ -146,10 +165,10 @@ export const SendModal = () => {
                   onClick={() => setAmount(ethBalance.toString().slice(0, 6))}
                   className="bg-black/20 rounded-2xl w-20 h-9"
                 >
-                  <p className="text-black text-center py-1.5">MAX</p>
+                  <p className="text-white text-center py-1.5">MAX</p>
                 </div>
                 <div className="text-s-gray-950">
-                  <p>{`Available: ${ethBalance.toString().slice(0, 5)} ETH`}</p>
+                  <p>{`Available: ${ethBalance.toString().slice(0, 5)} SOL`}</p>
                 </div>
               </div>
               <div className="mt-10 w-[100%] ml-auto mr-auto">
@@ -157,7 +176,7 @@ export const SendModal = () => {
                   <button
                     onClick={() => {
                       if (receiveAddress !== "" && amount > 0) {
-                        handleSendETH2();
+                       handleSendSol
                       }
                     }}
                     className="outline-none bg-transparent w-[100%] h-[100%] text-white  py-2 px-4"
@@ -165,9 +184,9 @@ export const SendModal = () => {
                    {
                     /** */
                    } {loading ? (
-                      'hhh'
+                      <SpinningCircles className="ml-auto mr-auto h-7 w-7" />
                     ) : (
-                      "Continue"
+                      "Send"
                     )}
                   </button>
                 </div>
@@ -175,34 +194,31 @@ export const SendModal = () => {
               {isTxSuccess && (
                 <TransactionSuccessModal hash={comment} amount={amount} />
               )}
-              {isTxFail && 'hi'}
+              {isTxFail && <FailedTxModal message={failedcomment} />}
             </div>
           </div>
         ) : (
           <div className="mt-8 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
             <div className="mt-12 w-[100%] ml-auto mr-auto">
-              <div className="w-[100%] ml-auto mr-auto mb-4 flex rounded-xl text-[19px] text-black/75 py-3 px-3 border items-start justify-center border-black bg-black/0 h-12">
-                <p className=" text-black font-light">From:</p>
-                <p className=" text-black font-light">
-                  {formatAddress(userAddress)}
-                </p>
+              <div className="w-[100%] ml-auto mr-auto mb-4 mt-[80px] flex rounded-xl text-[19px] text-black/75 py-3 px-3 items-start  bg-black/0 h-12">
+                <p className=" text-white/85 text-xl font-light">Receiver</p>
               </div>
-              <div className="w-[100%] mt-5 ml-auto mr-auto rounded-xl text-xl border border-black/60 bg-black/0 h-12">
+              <div className="w-[100%] mt-5 ml-auto mr-auto rounded-xl text-xl border border-white/90 bg-black/0 h-[72px]">
                 <input
                   onChange={(e) => setReceiveAddress(e.target.value)}
                   type="text"
-                  className="outline-none text-[19px] text-black/60 bg-transparent w-[100%] h-[100%]  py-2 px-4"
+                  className="outline-none text-[22px] text-white/60 bg-transparent w-[100%] h-[100%]  py-2 px-4"
                   placeholder="Enter Address"
                 />
               </div>
             </div>
 
             <div className="mt-20 w-[100%] ml-auto mr-auto">
-              <div className="w-[99%] ml-auto mr-auto rounded-xl bg-black/90 h-12">
+              <div className="w-[99%] ml-auto mr-auto rounded-xl bg-black/90 h-16">
                 <button
                   onClick={() => {
-                    if (receiveAddress.length < 42) {
-                      alert("not Valid ETH Address");
+                    if (receiveAddress.length < 32) {
+                      alert("not Valid PublicKey");
                     } else {
                       setIsConfirmed(true);
                     }

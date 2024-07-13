@@ -20,6 +20,7 @@ import { MdSwapHoriz } from "react-icons/md";
 import { GlobalContext } from "@/context/AppContext";
 //import { ReceiveModal } from "../Modals/ReceiveModal";
 import { Supabase } from "@/Utils/Supabasedb";
+import { SendModal } from "../Modals/SendModal";
 //import { Welcome } from "../Modals/WelcomeModal";
 //import { formatAddress, truncate, handleCopy } from "@/Utils/format";
 //import { ethers, formatEther } from "ethers";
@@ -232,7 +233,7 @@ export const Home2 = () => {
           <div className="bg-gothic-950/0 mt-3 flex items-center justify-center w-[100%] h-auto">
             <div className="bg-gothic-300/0 w-[90%] flex items-center justify-center rounded-3xl h-[100px]">
               <div
-               
+               onClick={() => setIsSend(true)}
                 className="text-xl bg-white/10  border-[#448cff]/25 flex flex-col items-center justify-center rounded-3xl h-20 w-20 ml-auto mr-auto  text-white/60"
               >
                 <IoIosSend className="text-3xl font-bold text-[#448cff]/55" />
@@ -328,7 +329,7 @@ export const Home2 = () => {
         <Menu />
       </div>
       {isChainList && <ChainSelector/>} 
-      
+      {isSend && <SendModal/>}
 
       {/**
        * 

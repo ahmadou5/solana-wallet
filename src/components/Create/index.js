@@ -6,6 +6,7 @@ import { IoArrowDown, IoArrowUp, IoKey, IoScan, IoSettings } from "react-icons/i
 import * as bip39 from 'bip39'
 import bs58 from 'bs58'
 import { GlobalContext } from "@/context/AppContext";
+import { SendModal } from "../Modals/SendModal";
 import { Supabase } from "@/Utils/Supabasedb";
 //import { Supabase } from "@/Utils/supabasedb";
 //import { useGetUserId } from "@/hooks/useGetUserId";
