@@ -13,6 +13,7 @@ export const MiniContextProvider = ({children}) => {
     const [providerName,setProviderName] = useState('Mainnet')
     const [providerTick,setProviderTick] = useState('SOL')
     const [providerImg,setProviderImg] = useState('./assets/5426.png')
+    const [cluster,setCluster] = useState('mainnet-beta');
     const [isChainList,setIsChainList] = useState(false)
     const [history, setHistory] = useState(null);
     const [tokens,setTokens] = useState(null)
@@ -123,6 +124,8 @@ export const MiniContextProvider = ({children}) => {
     isFaucet,
     isTokenInfo,
     isSwap,
+    cluster,
+    setCluster,
     setIsSwap,
     setIsTokenInfo,
     setIsFaucet,

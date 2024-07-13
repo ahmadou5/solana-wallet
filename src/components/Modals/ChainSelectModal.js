@@ -3,13 +3,14 @@ import { GlobalContext } from "@/context/AppContext"
 //import { chains } from "@/Utils/format"
 
 export const ChainSelector = () => {
-    const { setWelcome, userName, providerURL,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
+    const { setWelcome, userName, providerURL, setCluster,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
     
      const chains = [
         {
           name: 'Mainnet',
           providerUrl: 'https://api.mainnet-beta.solana.com',
           imgUrl: './assets/5426.png',
+          cluster: 'mainnet-beta',
           Tick: 'solana',
           scan: 'holesky.fraxscan.com',
           faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
@@ -19,6 +20,7 @@ export const ChainSelector = () => {
             providerUrl: 'https://api.testnet.solana.com',
             imgUrl: './assets/5426.png',
             Tick: 'Solana',
+            cluster: 'testnet',
             scan: 'sepolia.etherscan.io',
             faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
         },
@@ -26,6 +28,7 @@ export const ChainSelector = () => {
             name: 'Devnet',
             providerUrl: 'https://api.devnet.solana.com',
             imgUrl: './assets/5426.png',
+            cluster: 'devnet',
             Tick: 'Solana',
             scan: 'sepolia.etherscan.io',
             faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
@@ -61,6 +64,7 @@ export const ChainSelector = () => {
                         <>
                         <div onClick={() => {
                             setIsChainList(false)
+                            setCluster(item.cluster)
                             setProviderImg(item.imgUrl)
                             setProviderURL(item.providerUrl)
                             setProviderName(item.name)
