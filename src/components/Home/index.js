@@ -84,7 +84,7 @@ export const Home2 = () => {
     const fetchBalance = async () => {
       const connection = new Connection(providerURL); // Replace with desired cluster
       console.log(connection,'daganan')
-      const balance1 = await connection.getBalance(bs58.decode(userAddress));
+      const balance1 = await connection.getBalance(tobase(userAddress.tobase58()));
       console.log(balance1.toString(),'12346')
       setEthBalance(balance1/LAMPORTS_PER_SOL)
      
