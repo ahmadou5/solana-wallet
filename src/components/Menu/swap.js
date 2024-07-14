@@ -57,7 +57,7 @@ export default function Swap() {
   const handleFromValueChange = (
     event
     ) => {
-      setFromAmount(Number(event.target.value));
+      setFromAmount(event.target.value);
     };
     
   const debounceQuoteCall = useCallback(debounce(getQuote, 500), []);
@@ -67,7 +67,7 @@ export default function Swap() {
   }, [fromAmount, debounceQuoteCall]);
 
   async function getQuote() {
-    if (isNaN(currentAmount) || currentAmount <= 0) {
+    if ((currentAmount) || currentAmount <= 0) {
       console.error('Invalid fromAmount value:', currentAmount);
       return;
     }
@@ -80,7 +80,7 @@ export default function Swap() {
 
     if (quote && quote.outAmount) {
       const outAmountNumber =
-        Number(quote.outAmount) / Math.pow(10, toAsset.decimals);
+        (quote.outAmount) / Math.pow(10, toAsset.decimals);
       setToAmount(outAmountNumber);
     }
 
