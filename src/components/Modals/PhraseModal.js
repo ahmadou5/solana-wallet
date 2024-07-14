@@ -76,7 +76,7 @@ export const PhraseModal = () => {
     
         return (
           <>
-          <div className=" flex items-center justify-between text-[18px] font-light ">
+          <div className=" flex items-center justify-center text-[18px] font-light ">
             <ul className="ml-auto mr-auto">
               {firstHalf.map((word, index) => (
                 <li key={index}>
