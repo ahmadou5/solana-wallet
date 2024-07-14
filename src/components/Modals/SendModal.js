@@ -78,14 +78,12 @@ export const SendModal = () => {
       const txid =  await connection.sendTransaction(transaction);
       console.log(txid)
       
-      if (!userPkey) {
-        throw new Error("userPkey is undefined");
-      }
+      await connection.confirmTransaction(transaction);
 
      
 
       console.log('trx confirnm',txid)
-      setComment(tsid);
+      setComment(txid);
       setIsTxSuccess(true);
       setIsLoading(false);
 
