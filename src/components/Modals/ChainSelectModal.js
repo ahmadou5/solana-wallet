@@ -41,7 +41,7 @@ export const ChainSelector = () => {
     return(
     <div className="inset-0 fixed bg-black/95 bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
         <div className="w-[100%] flex items-center px- justify-center">
-            <div className="h-auto ml-auto mr-auto py-2 px-2 w-[90%] border border-[#448cff]/60 bg-white/15 rounded-xl">
+            <div className="h-auto ml-auto mr-auto py-2 px-2 w-[90%] border border-[#448cff]/60 bg-white/35 rounded-xl">
             <div>
                 <div onClick={() => setIsChainList(false)} className="w-16 rounded-xl text-white font-light flex items-center justify-center h-8 bg-white/95">
                     <p className="text-black text-[14]">esc</p>
