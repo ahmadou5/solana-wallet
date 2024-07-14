@@ -53,26 +53,26 @@ export const PkeyModal = () => {
   }
   return (
     <div className="inset-0 fixed bg-black bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
-      <div className="w-[100%] py-4 px-4 bg-white/95 rounded-t-3xl h-auto mt-[70px]">
+      <div className="w-[100%] py-4 px-4 bg-white/15 rounded-t-3xl h-auto mt-[70px]">
         <div>
           <div
             onClick={() => setIsPrivate(false)}
-            className="w-20 rounded-xl text-xl text-white font-light flex items-center justify-center h-9 bg-black/85"
+            className="w-20 rounded-xl text-xl text-black font-light flex items-center justify-center h-9 bg-white/85"
           >
             <p>esc</p>
           </div>
         </div><div className="mt-1 px-2 py-3 mb-10 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
           <div className="flex items-center justify-center mt-2">
-            <p className="text-black font-extrabold text-xl">Private Key</p>
+            <p className="text-white font-extrabold text-xl">Private Key</p>
           </div>
           <div className="w-[100%] mt-5 text-center bg-black/0 rounded-xl h-20">
-            <p className="text-black/75">
+            <p className="text-white/75">
                Just Know that Everyone with Your Private Key can access Your account, Please ensure you save it some where safe!
             </p>
           </div>
           <div className="w-[98%] mt-12 mb-10 ml-auto mr-auto p-3 bg-black/75 h-[290px] py-3 px-1 flex flex-col items-center justify-center rounded-2xl">
           <div className="text-white text-sm  font-light">
-           {userPkey}
+           {formatAddress(userPkey)}
           </div>
           
           </div>
