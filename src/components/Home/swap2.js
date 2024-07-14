@@ -4,6 +4,8 @@ import {
   Connection,
   Keypair,
   VersionedTransaction,
+  publicKey
+  
 } from "@solana/web3.js";
 import fetch from "cross-fetch";
 import * as bip39 from 'bip39'
@@ -11,7 +13,7 @@ import * as bip39 from 'bip39'
 import bs58 from "bs58";
 import { GlobalContext } from "@/context/AppContext";
 import { assets, debounce } from "@/Utils/format";
-import { publicKey } from "@project-serum/anchor/dist/cjs/utils";
+
 // It is recommended that you use your own RPC endpoint.
 // This RPC endpoint is only for demonstration purposes so that this example will run.
 
@@ -117,8 +119,8 @@ export const SwapView = () => {
     }
   }
   return (
-    <div>
-      <div>Holaa</div>
+    <div className="bg-gothic-950/0 mt-1 flex bg-slate-600  mb-2 flex-col items-center justify-center w-[100%] h-auto">
+      <div className="ml-">Holaa</div>
     </div>
   );
 };
