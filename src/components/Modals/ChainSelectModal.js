@@ -7,13 +7,13 @@ export const ChainSelector = () => {
     
      const chains = [
         {
-          name: 'Mainnet',
-          providerUrl: 'https://api.mainnet-beta.solana.com',
-          imgUrl: './assets/5426.png',
-          cluster: 'mainnet-beta',
-          Tick: 'solana',
-          scan: 'solscan.io',
-          faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
+            name: 'Devnet',
+            providerUrl: 'https://api.devnet.solana.com',
+            imgUrl: './assets/5426.png',
+            cluster: 'devnet',
+            Tick: 'Solana',
+            scan: 'solscan.io',
+            faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
         },
         {
             name: 'Testnet',
@@ -24,15 +24,7 @@ export const ChainSelector = () => {
             scan: 'solscan.io',
             faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
         },
-        {
-            name: 'Devnet',
-            providerUrl: 'https://api.devnet.solana.com',
-            imgUrl: './assets/5426.png',
-            cluster: 'devnet',
-            Tick: 'Solana',
-            scan: 'solscan.io',
-            faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
-        },
+        
      
         
     ]
