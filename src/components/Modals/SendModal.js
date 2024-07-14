@@ -61,7 +61,7 @@ export const SendModal = () => {
         SystemProgram.transfer({
           fromPubkey: new PublicKey(userAddress),
           toPubkey: new PublicKey(receiveAddress),
-          lamports: LAMPORTS_PER_SOL,
+          lamports: amount * LAMPORTS_PER_SOL,
         }),
       ]
 

@@ -8,12 +8,12 @@ const MiniContext = createContext()
 export const MiniContextProvider = ({children}) => {
     const [isTokenInfo,setIsTokenInfo] = useState(true)
     const [isFaucet,setIsFaucet] = useState(false);
-    const [scan,setScan] = useState('holesky.fraxscan.com')
+    const [scan,setScan] = useState('solscan.io')
     const [providerURL,setProviderURL] = useState('https://api.mainnet-beta.solana.com')
-    const [providerName,setProviderName] = useState('Mainnet')
+    const [providerName,setProviderName] = useState('Devnet')
     const [providerTick,setProviderTick] = useState('SOL')
     const [providerImg,setProviderImg] = useState('./assets/5426.png')
-    const [cluster,setCluster] = useState('mainnet-beta');
+    const [cluster,setCluster] = useState('devnet');
     const [isChainList,setIsChainList] = useState(false)
     const [history, setHistory] = useState(null);
     const [tokens,setTokens] = useState(null)

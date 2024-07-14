@@ -12,7 +12,7 @@ export const ChainSelector = () => {
           imgUrl: './assets/5426.png',
           cluster: 'mainnet-beta',
           Tick: 'solana',
-          scan: 'holesky.fraxscan.com',
+          scan: 'solscan.io',
           faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
         },
         {
@@ -21,7 +21,7 @@ export const ChainSelector = () => {
             imgUrl: './assets/5426.png',
             Tick: 'Solana',
             cluster: 'testnet',
-            scan: 'sepolia.etherscan.io',
+            scan: 'solscan.io',
             faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
         },
         {
@@ -30,7 +30,7 @@ export const ChainSelector = () => {
             imgUrl: './assets/5426.png',
             cluster: 'devnet',
             Tick: 'Solana',
-            scan: 'sepolia.etherscan.io',
+            scan: 'solscan.io',
             faucet: 'https://www.alchemy.com/faucets/ethereum-sepolia'
         },
      

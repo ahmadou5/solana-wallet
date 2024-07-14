@@ -7,9 +7,9 @@ export const TransactionSuccessModal = ({hash,amount}) => {
   
     const { setWelcome, userName,isTxSuccess,setIsTxSuccess, setIsSend,scan } = GlobalContext()
     return(
-    <div className="inset-0 fixed bg-black/85 bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
+    <div className="inset-0 fixed bg-black/95 bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
         <div className="w-[100%] flex items-center px-3 justify-center">
-            <div className="h-[220px] ml-auto mr-auto py-2 px-2 w-[90%] bg-white/95 rounded-xl">
+            <div className="h-[220px] ml-auto mr-auto py-2 px-2 w-[90%] bg-white/15 rounded-xl">
             
             <div className="mt-5 ml-auto mr-auto flex flex-col items-center justify-center text-center">
                 <p className="text-center text-black font-light text-[20px] mb-4">{`Transaction Success 🎉🎉`} </p>
