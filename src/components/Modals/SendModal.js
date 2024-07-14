@@ -99,7 +99,7 @@ export const SendModal = () => {
       setIsTxSuccess(true);
       setIsLoading(false);
 
-      const { data, error } = await Supabase.from("NewHistory")
+      const { data, error } = await Supabase.from("SolHistory")
         .insert([
           {
             id: id,

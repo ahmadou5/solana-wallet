@@ -35,10 +35,6 @@ export const SwapView = () => {
     userMnemonic,
     fromName,
     setFromName,
-    toLogo,
-    setToLogo,
-    fromLogo,
-    setFromLogo,
     toName,
     seToName,
     setIsToTokenSelect,
@@ -50,11 +46,11 @@ export const SwapView = () => {
   const connection = new Connection(clusterApiUrl("devnet"));
 
   const handleFromAssetChange = async (event) => {
-    setFromAsset(assets.find((asset) => asset.name === fromName )) ;
+    setFromAsset(assets.find((asset) => asset.name === fromName ) || assets[1]);
   };
 
   const handleToAssetChange = (event) => {
-    setToAsset(assets.find((asset) => asset.name === toName) );
+    setToAsset(assets.find((asset) => asset.name === toName) || assets[0]);
   };
 
   const handleFromValueChange = (event) => {
@@ -177,7 +173,7 @@ export const SwapView = () => {
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
-                  src={fromLogo}
+                  src={fromAsset.logo}
                   className="mr-1 w-6 h-6 rounded-full"
                 />
                 <div className="mb-0.5">{fromAsset.name}</div>
@@ -201,7 +197,7 @@ export const SwapView = () => {
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
-                  src={toLogo}
+                  src={toAsset.logo}
                   className="mr-1 w-6 h-6 rounded-full"
                 />
                 <div className="mb-0.5">{toAsset.name}</div>
@@ -223,11 +219,7 @@ export const SwapView = () => {
         </div>
       </div>
       <div className="w-[98%] bg-white/10 px-2 flex mt-2 flex-col border border-[#448cff]/60 justify-center items-center rounded-xl h-[80px]">
-        <div>
-          <p>{toAmount}</p>
-          <p></p>
-          <p></p>
-        </div>
+        empty
       </div>
       {isFromTokenSelect && (
         <FromTokenSelector handleFrom={handleFromAssetChange} />
