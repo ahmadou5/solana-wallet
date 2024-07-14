@@ -2,16 +2,16 @@
 
 import styles from './swap.module.css';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { VersionedTransaction, Connection } from '@solana/web3.js';
+import { VersionedTransaction, Connection, clusterApiUrl } from '@solana/web3.js';
 import React, { useState, useEffect, useCallback } from 'react';
-
+import { GlobalContext } from '@/context/AppContext';
 const assets = [
   { name: 'SOL', mint: 'So11111111111111111111111111111111111111112', decimals: 9},
   { name: 'USDC', mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', decimals: 6},
   { name: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', decimals: 5 },
   { name: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', decimals: 6},
 ];
-
+const { cluster} = GlobalContext()
 const debounce = () => {
   let timeout;
 
@@ -37,7 +37,7 @@ export default function Swap() {
 
   // Need a custom RPC so you don't get rate-limited, don't rely on users' wallets
   const connection = new Connection(
-    'https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY_HERE'
+    clusterApiUrl(cluster)
   );
 
   const handleFromAssetChange = async (
