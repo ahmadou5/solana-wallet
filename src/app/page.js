@@ -4,6 +4,7 @@ import { Home2 } from "@/components/Home";
 import { Loading } from "@/components/Loading";
 import { Menu } from "@/components/Menu";
 import { GlobalContext } from "@/context/AppContext";
+import { clusterApiUrl } from "@solana/web3.js";
 import Image from "next/image";
 import { useEffect } from "react";
 
@@ -21,7 +22,7 @@ export default function Home() {
       window.Jupiter.init({ 
         displayMode: "integrated",
         integratedTargetId: "integrated-terminal",
-        endpoint: "https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY_HERE",
+        endpoint: clusterApiUrl('devnet'),
         strictTokenList: false,
         defaultExplorer: "SolanaFM",
         formProps: {
