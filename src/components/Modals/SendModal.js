@@ -201,8 +201,8 @@ export const SendModal = () => {
               </div>
             </div>
 
-            <div className="mt-20 w-[100%] ml-auto mr-auto">
-              <div className="w-[99%] ml-auto mr-auto rounded-xl bg-black/90 h-14">
+            <div className="mt-10 w-[100%] ml-auto mr-auto">
+              <div className="w-[99%] ml-auto mr-auto rounded-xl border border-[#448cff]/60 bg-black/90 h-14">
                 <button
                   onClick={() => {
                     if (receiveAddress.length < 32) {
