@@ -53,8 +53,7 @@ export const SendModal = () => {
       const seedBytes = seed.slice(0,32)
       const account = await Keypair.fromSeed(seedBytes);
       const connection = new Connection(clusterApiUrl(cluster),'confirmed')
-      const base = new Uint8Array(bs58.decode(userPkey))
-      console.log(base)
+     
       
       const  blockhash  = await connection.getLatestBlockhash().then(res => res.blockhash)
 
@@ -67,7 +66,7 @@ export const SendModal = () => {
       ]
 
       const messageV0 = new TransactionMessage({
-        payerKey: base,
+        payerKey: account.secretKey,
         recentBlockhash: blockhash,
         instructions: instruction
       }).compileToV0Message();
