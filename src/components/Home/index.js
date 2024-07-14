@@ -38,7 +38,7 @@ import { ChainSelector } from "../Modals/ChainSelectModal";
 import useSolanaBalance, { useGetUserBalance } from "@/hooks/useGetBalance";
 import { useGetUserId } from "@/hooks/useGetUserData";
 import { ReceiveModal } from "../Modals/ReceiveModal";
-import Swap from "../Menu/swap";
+import { SwapView } from "./swap2";
 export const Home2 = () => {
   const {
     user,
@@ -142,7 +142,7 @@ export const Home2 = () => {
   
   return (
     <div className="w-[100%] py-2 px-1 h-auto bg-red-400/0">
-      {isSwap && (<Swap />)}
+      {isSwap && (<SwapView />)}
       {isTokens && (
         <>
           <div className="bg-gothic-950/0 mt-1 flex bg-slate-600  mb-2 flex-col items-center justify-center w-[100%] h-auto">
