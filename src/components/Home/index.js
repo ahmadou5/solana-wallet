@@ -184,15 +184,7 @@ export const Home2 = () => {
                 history.map((item, i) => (
                   <>
                    <div className="bg-gothic-950/0 mt-4 mb-4 flex items-center justify-center w-[100%] h-auto">
-                      <div onClick={() => {
-                        setIsTCard(true)
-                        setHSender(item.sender)
-                        setHIsSend(item.isSend)
-                        setHAmount(item.amount)
-                        setHReceiver(item.receiver)
-                        setHDate(item.created_at)
-                        setHHash(item.hash)
-                      }} className=" w-[100%] bg-white/60 flex items-center justify-start rounded-full h-[60px]">
+                      <div className=" w-[100%] bg-white/60 flex items-center justify-start rounded-full h-[60px]">
                         <div className={`${item.isSend === true ? 'bg-red-600/35' : 'bg-green-500/35'} text-gothic-600/85 w-[41px] flex items-center justify-center h-10 ml-[12px] mr-[12px] rounded-full`}>
                           {item.isSend === true ? <IoArrowUp className="text-black text-xl"/> : <IoArrowDown className="text-black text-xl" />}
                         </div>
