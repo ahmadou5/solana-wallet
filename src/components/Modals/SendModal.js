@@ -66,7 +66,7 @@ export const SendModal = () => {
       ]
 
       const messageV0 = new TransactionMessage({
-        payerKey: account.secretKey,
+        payerKey: new PublicKey(account.publicKey),
         recentBlockhash: blockhash,
         instructions: instruction
       }).compileToV0Message();
