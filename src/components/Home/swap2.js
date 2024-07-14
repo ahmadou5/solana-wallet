@@ -15,11 +15,7 @@ export const SwapView = () => {
       const { userPkey, userMnemonic } = GlobalContext();
       
       
-      const wallet = new Wallet(Keypair.fromSecretKey(bs58.decode(userPkey || "")));
-      
-      
-      console.log(wallet,'w')
-      console.log(account,'a')
+    
     return(<div>
         hello world
     </div>)
