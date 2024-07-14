@@ -8,7 +8,17 @@ import 'react-toastify/dist/ReactToastify.css';
 export const ReceiveModal = () => {
     const { setIsReceive, userAddress } = GlobalContext()
     const { Canvas } = useQRCode()
-    const toastify = () => toast('Address Copied!!')
+    const toastify = () => toast('🦄 Address Copied!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
     return(
     <div className="inset-0 fixed bg-black bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
         <div className="w-[100%] py-4 px-4 bg-white/15 rounded-t-3xl h-auto mt-[70px]">
