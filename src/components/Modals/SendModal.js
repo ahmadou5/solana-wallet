@@ -94,7 +94,8 @@ export const SendModal = () => {
   
       console.log(userPkey)
       transaction.feePayer = userPkey
-      //const base = new Uint8Array(Buffer.from(userPkey,'base64')) 
+      const base = new Uint8Array(Buffer.from(userPkey,'base64')) 
+      console.log(base)
       //transaction.sign(base)
 
       //const signature = await connection.sendRawTransaction(transaction.serialize())
