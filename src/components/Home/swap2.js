@@ -7,7 +7,7 @@ import {
 } from "@solana/web3.js";
 import fetch from "cross-fetch";
 import * as bip39 from 'bip39'
-import { Wallet } from "@project-serum/anchor";
+//import { Wallet } from "@project-serum/anchor";
 import bs58 from "bs58";
 import { GlobalContext } from "@/context/AppContext";
 import { assets, debounce } from "@/Utils/format";
