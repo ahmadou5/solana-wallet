@@ -78,7 +78,7 @@ export const SendModal = () => {
       const txid =  await connection.sendTransaction(transaction);
       console.log(txid)
       
-      await connection.confirmTransaction(transaction);
+      
 
      
 
