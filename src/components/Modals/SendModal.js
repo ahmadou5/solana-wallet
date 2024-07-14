@@ -1,7 +1,7 @@
 "use client";
 import { GlobalContext } from "@/context/AppContext";
 import { useState } from "react";
-import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, LAMPORTS_PER_SOL, Keypair, } from "@solana/web3.js";
+import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, sendAndConfirmTransaction, LAMPORTS_PER_SOL, Keypair, } from "@solana/web3.js";
 import { TransactionSuccessModal } from "./TransactionSuccess";
 import { formatAddress } from "@/Utils/format";
 //import { c formatAddress } from "@/Utils/format"
@@ -92,15 +92,16 @@ export const SendModal = () => {
       if (!userPkey) {
         throw new Error("userPkey is undefined");
       }
-  
-      console.log(userPkey)
-      transaction.feePayer = userPkey
+
       const base = new Uint8Array(bs58.decode(userPkey))
       console.log(base)
-      transaction.sign(base)
-
-      const signature = await connection.sendRawTransaction(transaction.serialize())
-      await connection.confirmTransaction(signature)
+      
+      const signature = await sendAndConfirmTransaction(
+        connection,
+        transaction,
+        [base]
+      )
+      
 
       console.log('trx confirnm',signature)
       setComment(signature);
