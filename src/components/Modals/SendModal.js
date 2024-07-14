@@ -92,16 +92,16 @@ export const SendModal = () => {
         throw new Error("userPkey is undefined");
       }
   
-     
+      console.log(userPkey)
       transaction.feePayer = userPkey
-      const base = new Uint8Array(Buffer.from(userPkey,'base64')) 
-      transaction.sign(base)
+      //const base = new Uint8Array(Buffer.from(userPkey,'base64')) 
+      //transaction.sign(base)
 
-      const signature = await connection.sendRawTransaction(transaction.serialize())
-      await connection.confirmTransaction(signature)
+      //const signature = await connection.sendRawTransaction(transaction.serialize())
+      //await connection.confirmTransaction(signature)
 
-      console.log('trx confirnm',signature)
-      setComment(signature);
+      //console.log('trx confirnm',signature)
+      //setComment(signature);
       setIsTxSuccess(true);
       setIsLoading(false);
 
