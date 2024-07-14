@@ -12,8 +12,10 @@ import * as bip39 from "bip39";
 //import { Wallet } from "@project-serum/anchor";
 import bs58 from "bs58";
 import { GlobalContext } from "@/context/AppContext";
-import { assets, debounce } from "@/Utils/format";
+import { assets } from "@/Utils/format";
 import { useState, useCallback, useEffect } from "react";
+import { FromTokenSelector } from "../Modals/FromTokenSelect";
+import { ToTokenSelector } from "../Modals/ToTokenSelect";
 
 // It is recommended that you use your own RPC endpoint.
 // This RPC endpoint is only for demonstration purposes so that this example will run.
@@ -24,25 +26,29 @@ export const SwapView = () => {
   const [fromAmount, setFromAmount] = useState(0);
   const [toAmount, setToAmount] = useState(0);
   const [quoteResponse, setQuoteResponse] = useState(null);
-  const { userPkey, userMnemonic } = GlobalContext();
+
+  
+  const { userPkey, userMnemonic,fromName,setFromName, toName,seToName , setIsToTokenSelect,
+    setIsFromTokenSelect,isToTokenSelect, isFromTokenSelect } = GlobalContext();
 
   const connection = new Connection(clusterApiUrl("devnet"));
 
   const handleFromAssetChange = async (event) => {
     setFromAsset(
-      assets.find((asset) => asset.name === event.target.value) || assets[0]
+      assets.find((asset) => asset.name === fromName) || assets[1]
     );
   };
 
   const handleToAssetChange = (event) => {
     setToAsset(
-      assets.find((asset) => asset.name === event.target.value) || assets[0]
+      assets.find((asset) => asset.name === toName) || assets[0]
     );
   };
 
   const handleFromValueChange = (event) => {
     setFromAmount(event.target.value);
   };
+  
 
   const getQuote = async () => {
     if (currentAmount || currentAmount <= 0) {
@@ -66,6 +72,20 @@ export const SwapView = () => {
     }
 
     setQuoteResponse(quote);
+  };
+
+  const debounce = ({func, wait}) => {
+    let timeout;
+  
+    return () => {
+      const later = () => {
+        clearTimeout(timeout);
+        func();
+      };
+  
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   };
   const debounceQuoteCall = useCallback(debounce(getQuote, 500), []);
 
@@ -132,22 +152,23 @@ export const SwapView = () => {
             <p className="mb-2 mt-2 mr-auto ml-3">You are Paying</p>
             <div className="w-[100%] ml-auto mr-auto h-16 py-2 px-1 flex rounded-2xl bg-black/15">
               <div
-                onClick={() => setIsChainList(true)}
+                onClick={() => setIsFromTokenSelect(true)}
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
                   src="./assets/5426.png"
                   className="mr-1 w-6 h-6 rounded-full"
                 />
-                <div className="mb-0.5">{"solana"}</div>
+                <div className="mb-0.5">{fromAsset.name}</div>
                 <MdKeyboardArrowDown className="text-2xl text-[#448cff]/45 ml-auto mr-1 mb-2" />
               </div>
               <div className="w-[55%] py-1.5 flex items-center justify-center bg-slate-50/0">
                 <input
                   className="w-[90%] h-[90%] ml-auto mr-auto text-[19px] bg-transparent outline-none"
+                  onChange={handleFromValueChange}
                   type="text"
                   placeholder="0.00"
-                  title="Enter Number"
+                 
                 />
               </div>
             </div>
@@ -156,19 +177,20 @@ export const SwapView = () => {
             <p className="mb-2 mt-2 mr-auto ml-3">To Receive</p>
             <div className="w-[100%] ml-auto mr-auto h-16 py-2 px-1 flex rounded-2xl bg-black/15">
               <div
-                onClick={() => setIsChainList(true)}
+                onClick={() => setIsToTokenSelect(true)}
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
                   src="./assets/5426.png"
                   className="mr-1 w-6 h-6 rounded-full"
                 />
-                <div className="mb-0.5">{"solana"}</div>
+                <div className="mb-0.5">{toAsset.name}</div>
                 <MdKeyboardArrowDown className="text-2xl text-[#448cff]/45 ml-auto mr-1 mb-2" />
               </div>
               <div className="w-[55%] py-1.5 flex items-center justify-center bg-slate-50/0">
                 <input
                   className="w-[90%] h-[90%] ml-auto mr-auto text-[19px] bg-transparent outline-none"
+                  value={toAmount}
                   type="text"
                   placeholder="0.00"
                   title="Enter Number"
@@ -185,6 +207,8 @@ export const SwapView = () => {
       <div className="w-[98%] bg-white/10 px-2 flex mt-2 flex-col border border-[#448cff]/60 justify-center items-center rounded-xl h-[80px]">
       empty
       </div>
+      {isFromTokenSelect && <FromTokenSelector handleFrom={handleFromAssetChange}/>}
+      {isToTokenSelect && <ToTokenSelector handleTo={handleToAssetChange} />}
     </div>
   );
 };

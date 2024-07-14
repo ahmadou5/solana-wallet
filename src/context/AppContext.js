@@ -57,7 +57,7 @@ export const MiniContextProvider = ({children}) => {
     const [isSend,setIsSend] = useState(false)
     const [isReceive,setIsReceive] = useState(false)
     const [isScan,setIsScan] = useState(false)
-    const [isAuthenticate,setIsAuthenticate] = useState(false)
+    const [isAuthenticate,setIsAuthenticate] = useState(true)
     const [user,setUser ] = useState(null);
     const [userAddress,setUserAddress] = useState('')
     const [userName, setUserName] = useState('')
@@ -65,6 +65,10 @@ export const MiniContextProvider = ({children}) => {
     const [userMnemonic,setUserMnemonic] = useState(null)
     const [welcome,setWelcome] = useState(false)
     const [isLoading,setIsLoading] = useState(true)
+    const [fromName,setFromName] = useState('')
+    const [toName,seToName] = useState('')
+    const [isFromTokenSelect, setIsFromTokenSelect] = useState(false)
+    const [isToTokenSelect, setIsToTokenSelect] = useState(false)
    const value = {
     user,
     userAddress,
@@ -125,6 +129,14 @@ export const MiniContextProvider = ({children}) => {
     isTokenInfo,
     isSwap,
     cluster,
+    fromName,
+    toName,
+    isFromTokenSelect, 
+    isToTokenSelect, 
+    setIsToTokenSelect,
+    setIsFromTokenSelect,
+    seToName,
+    setFromName,
     setCluster,
     setIsSwap,
     setIsTokenInfo,
