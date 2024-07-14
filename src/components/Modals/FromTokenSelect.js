@@ -27,7 +27,7 @@ export const FromTokenSelector = ({handleFrom}) => {
                     assets && assets.map((item,i) => (
                         <>
                         <div onClick={() => {
-                            handleFrom(item.name)
+                            //handleFrom(item.name)
                             setFromName(item.name);
                             setFromLogo(item.logo)
                             setIsFromTokenSelect(false)

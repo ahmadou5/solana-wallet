@@ -29,7 +29,7 @@ export const ToTokenSelector = ({handleTo}) => {
                         <div onClick={() => {
                             seToName(item.name);
                             setToLogo(item.logo)
-                            handleTo(item.name)
+                           // handleTo(item.name)
                             setIsToTokenSelect(false)
                         }} key={i} className="w-[97%] mt-1 mb-1 bg-black/10 border  border-[#448cff]/60 flex rounded-2xl h-18">
                 <div className="h-[80%] w-[26%] py-3 px-3">
