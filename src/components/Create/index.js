@@ -107,6 +107,26 @@ export const Create = () => {
     
     useEffect(() => {
         //console.log(Supabase)
+        const initJup = () => {
+            if (window.Jupiter) {
+                console.log('jup found')
+                window.Jupiter.init({ 
+                  displayMode: "integrated",
+                  integratedTargetId: "integrated-terminal",
+                  endpoint: "https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY_HERE",
+                  strictTokenList: false,
+                  defaultExplorer: "SolanaFM",
+                  formProps: {
+                    initialAmount: "888888880000",
+                    initialInputMint: "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+                    initialOutputMint: "AZsHEMXd36Bj1EMNXhowJajpUXzrKcK57wW4ZGXVa7yR",
+                  },
+                });
+              } else {
+                console.error("Jupiter script not loaded yet");
+              }
+        }
+        initJup()
         console.log('useTelegram')
         function initTg() {
         if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
