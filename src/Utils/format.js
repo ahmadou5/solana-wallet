@@ -25,6 +25,25 @@ export const formatAddress = (value) => {
       }
     );
   }
+   export const debounce = () => {
+    let timeout;
+  
+    return () => {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+  
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  };
+  export const assets = [
+    { name: 'SOL', mint: 'So11111111111111111111111111111111111111112', decimals: 9},
+    { name: 'USDC', mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', decimals: 6},
+    { name: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', decimals: 5 },
+    { name: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', decimals: 6},
+  ];
 
   export const chains = [
     {
