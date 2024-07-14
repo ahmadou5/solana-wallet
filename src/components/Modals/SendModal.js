@@ -1,7 +1,18 @@
 "use client";
 import { GlobalContext } from "@/context/AppContext";
 import { useState } from "react";
-import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, sendAndConfirmTransaction, LAMPORTS_PER_SOL, Keypair, TransactionMessage, VersionedTransaction, } from "@solana/web3.js";
+import {
+  Transaction,
+  SystemProgram,
+  PublicKey,
+  Connection,
+  clusterApiUrl,
+  sendAndConfirmTransaction,
+  LAMPORTS_PER_SOL,
+  Keypair,
+  TransactionMessage,
+  VersionedTransaction,
+} from "@solana/web3.js";
 import { TransactionSuccessModal } from "./TransactionSuccess";
 import { formatAddress } from "@/Utils/format";
 //import { c formatAddress } from "@/Utils/format"
@@ -9,13 +20,13 @@ import { formatAddress } from "@/Utils/format";
 //import { TransactionSuccessModal } from "./TransactionSuccess";
 //import { FailedTxModal } from "./TransactionFailed"
 //import { Supabase } from "@/Utils/supabasedb"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { SpinningCircles } from "react-loading-icons"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SpinningCircles } from "react-loading-icons";
 import { Supabase } from "@/Utils/Supabasedb";
 import { FailedTxModal } from "./TransactionFailed";
-import * as bip39 from 'bip39'
-import bs58 from 'bs58'
+import * as bip39 from "bip39";
+import bs58 from "bs58";
 //import { useGetUserId } from "@/hooks/useGetUserId"
 export const SendModal = () => {
   const [loading, setIsLoading] = useState(false);
@@ -40,24 +51,25 @@ export const SendModal = () => {
   const [comment, setComment] = useState("");
   const [failedcomment, setFailedComment] = useState("");
   const [amount, setAmount] = useState(0);
-  
-  const alertify = toast('Address Copied!!!')
+
+  const alertify = toast("Address Copied!!!");
   const multiple = (x, y) => {
     return x * y;
   };
   const id = user?.initDataUnsafe?.user?.id;
- 
+
   const handleSendSol = async () => {
     setIsLoading(true);
     try {
-      const seed = await bip39.mnemonicToSeed(userMnemonic)
-            //console.log(seed,'seed')
-      const seedBytes = seed.slice(0,32)
+      const seed = await bip39.mnemonicToSeed(userMnemonic);
+      //console.log(seed,'seed')
+      const seedBytes = seed.slice(0, 32);
       const account = await Keypair.fromSeed(seedBytes);
-      const connection = new Connection(clusterApiUrl(cluster),'confirmed')
-     
-      
-      const  blockhash  = await connection.getLatestBlockhash().then(res => res.blockhash)
+      const connection = new Connection(clusterApiUrl(cluster), "confirmed");
+
+      const blockhash = await connection
+        .getLatestBlockhash()
+        .then((res) => res.blockhash);
 
       const instruction = [
         SystemProgram.transfer({
@@ -65,45 +77,51 @@ export const SendModal = () => {
           toPubkey: new PublicKey(receiveAddress),
           lamports: amount * LAMPORTS_PER_SOL,
         }),
-      ]
+      ];
 
       const messageV0 = new TransactionMessage({
         payerKey: new PublicKey(account.publicKey),
         recentBlockhash: blockhash,
-        instructions: instruction
+        instructions: instruction,
       }).compileToV0Message();
 
-      const transaction = new VersionedTransaction(messageV0)
-      
-      transaction.sign([account])
+      const transaction = new VersionedTransaction(messageV0);
 
-      const txid =  await connection.sendTransaction(transaction);
-      console.log(txid)
-      
-     
-      await connection.confirmTransaction(txid, 'confirmed'); 
-     
+      transaction.sign([account]);
 
-      console.log('trx confirnm',txid)
+      const txid = await connection.sendTransaction(transaction);
+      console.log(txid);
+
+      await connection.confirmTransaction(transaction, "confirmed");
+
+      console.log("trx confirnm", txid);
       setComment(txid);
       setIsTxSuccess(true);
       setIsLoading(false);
 
-          {/** // Update Supabase history only after successful mining
-            const { data, error } = await Supabase.from("NewHistory")
-            //.insert([{ id: id, sender: userAddress, receiver: receiveAddress, amount: amount, hash: signature, isSend: true, chain: providerName  }])
-            .select();
-    
-          if (data) {
-            console.log(data, "Transaction data saved to Supabase");
-          }
-    
-          if (error) {
-            console.error(error, "Error saving transaction to Supabase");
-          }
-             */} 
-      
-     
+      const { data, error } = await Supabase.from("NewHistory")
+        .insert([
+          {
+            id: id,
+            sender: userAddress,
+            receiver: receiveAddress,
+            amount: amount,
+            hash: signature,
+            isSend: true,
+            isSpl: false,
+            token: "SOL",
+            network: cluster,
+          },
+        ])
+        .select();
+
+      if (data) {
+        console.log(data, "Transaction data saved to Supabase");
+      }
+
+      if (error) {
+        console.error(error, "Error saving transaction to Supabase");
+      }
     } catch (error) {
       console.log(error);
       console.error("Error sending sol:", error);
@@ -113,7 +131,6 @@ export const SendModal = () => {
       setIsLoading(false);
     }
   };
- 
 
   return (
     <div className="inset-0 fixed bg-black bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
@@ -129,9 +146,9 @@ export const SendModal = () => {
         {isConfirmed ? (
           <div className="mt-8 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
             <div className="w-[100%] h-12 bg-slate-50/0 rounded-xl py-3 px-6">
-              <p className="text-[19px] text-white font-light">{`to: ${
-                formatAddress(receiveAddress)
-              }`}</p>
+              <p className="text-[19px] text-white font-light">{`to: ${formatAddress(
+                receiveAddress
+              )}`}</p>
             </div>
             <div className="w-[98%] mt-4 ml-auto mr-auto h-[230px] py-3 px-2 flex flex-col items-center justify-center border border-[#448cff]/60 rounded-2xl bg-black/40">
               <div className="w-[100%] ml-auto mr-auto text-white rounded-xl  flex  h-16">
@@ -166,14 +183,13 @@ export const SendModal = () => {
                   <button
                     onClick={() => {
                       if (receiveAddress !== "" && amount > 0) {
-                       handleSendSol()
+                        handleSendSol();
                       }
                     }}
                     className="outline-none bg-transparent w-[100%] h-[100%] text-white  py-2 px-4"
                   >
-                   {
-                    /** */
-                   } {loading ? (
+                    {/** */}{" "}
+                    {loading ? (
                       <SpinningCircles className="ml-auto mr-auto h-7 w-7" />
                     ) : (
                       "Send"
@@ -188,21 +204,22 @@ export const SendModal = () => {
             </div>
           </div>
         ) : (
-          <div className="mt-3 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
-            <div className="mt-7 w-[100%] ml-auto mr-auto">
-              <div className="w-[100%] ml-auto mr-auto mb-4 mt-[80px] flex rounded-xl text-[19px] text-black/75 py-3 px-3 items-start  bg-black/0 h-12">
+          <div className="mt-3 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[100%] ml-auto mr-auto">
+            <div className="border w-[100%] mt-[90px] h-[210px] border-[#448cff]/60 bg-black/45 rounded-2xl mb-2 ">
+            <div className="mt-7 w-[98%] ml-auto mr-auto">
+              <div className="w-[100%] ml-auto mr-auto mb-4 mt-[29px] flex rounded-xl text-[19px] text-black/75 py-3 px-3 items-start  bg-black/0 h-12">
                 <p className=" text-white/85 text-xl font-light">Receiver</p>
               </div>
-              <div className="w-[100%] mt-5 ml-auto mr-auto rounded-xl text-xl border bg-black/0 border-[#448cff]/45 h-16">
+              <div className="w-[98%] mt-4 ml-auto mr-auto rounded-xl text-xl border bg-black/0 border-[#448cff]/45 h-16">
                 <input
                   onChange={(e) => setReceiveAddress(e.target.value)}
                   type="text"
-                  className="outline-none text-[22px] text-white/60 bg-transparent w-[100%] h-[100%]  py-2 px-4"
+                  className="outline-none text-[22px] text-white/60 bg-transparent w-[95%] h-[100%]  py-2 px-4"
                   placeholder="Enter Address"
                 />
               </div>
             </div>
-
+            </div>
             <div className="mt-10 w-[100%] ml-auto mr-auto">
               <div className="w-[99%] ml-auto mr-auto rounded-xl border border-[#448cff]/60 bg-black/90 h-14">
                 <button

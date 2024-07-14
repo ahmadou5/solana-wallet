@@ -5,6 +5,7 @@ import {
   Connection,
   Keypair,
   VersionedTransaction,
+  LAMPORTS_PER_SOL,
   PublicKey,
 } from "@solana/web3.js";
 import fetch from "cross-fetch";
@@ -17,7 +18,7 @@ import { assets } from "@/Utils/format";
 import { useState, useCallback, useEffect } from "react";
 import { FromTokenSelector } from "../Modals/FromTokenSelect";
 import { ToTokenSelector } from "../Modals/ToTokenSelect";
-
+import { SwapModal } from "../Modals/SwapModal";
 // It is recommended that you use your own RPC endpoint.
 // This RPC endpoint is only for demonstration purposes so that this example will run.
 
@@ -30,6 +31,7 @@ export const SwapView = () => {
 
   const {
     userPkey,
+    isSwapModal,setIsSwapModal,
     userMnemonic,
     fromName,
     setFromName,
@@ -44,7 +46,7 @@ export const SwapView = () => {
   const connection = new Connection(clusterApiUrl("devnet"));
 
   const handleFromAssetChange = async (event) => {
-    setFromAsset(assets.find((asset) => asset.name === fromName) || assets[1]);
+    setFromAsset(assets.find((asset) => asset.name === fromName ) || assets[1]);
   };
 
   const handleToAssetChange = (event) => {
@@ -71,7 +73,7 @@ export const SwapView = () => {
         currentAmount * Math.pow(10, fromAsset.decimals)
       }&slippage=0.5`)
       if(quote.status == 200) {
-        setToAmount(quote.data.outAmount / Math.pow(10, fromAsset.decimals))
+        setToAmount(quote.data.outAmount / LAMPORTS_PER_SOL)
         setQuoteResponse(quote.data)
       }
     } catch (error) {
@@ -161,7 +163,7 @@ export const SwapView = () => {
       <div className="w-[40%] mt-4 mb-2 ml-auto mr-auto flex items-center justify-center bg-black/25 h-9 rounded-3xl ">
         <p className="text-white text-[16px] font-bold">Swap</p>
       </div>
-      <div className="w-[100%] mt-6 flex items-center justify-center">
+      <div className="w-[100%] mt-20 flex items-center justify-center">
         <div className="w-[98%] bg-white/10 px-2 flex flex-col border border-[#448cff]/60 justify-center items-center rounded-xl h-[370px]">
           <div className="w-[99%] py-2 px-1 h-[40%] bg-black/0">
             <p className="mb-2 mt-2 mr-auto ml-3">You are Paying</p>
@@ -223,6 +225,7 @@ export const SwapView = () => {
         <FromTokenSelector handleFrom={handleFromAssetChange} />
       )}
       {isToTokenSelect && <ToTokenSelector handleTo={handleToAssetChange} />}
+      {isSwapModal && <SwapModal />}
     </div>
   );
 };

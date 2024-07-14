@@ -171,14 +171,14 @@ export const Home2 = () => {
       )}
       {isHistory && (
         <>
-          <div className="bg-gothic-950/0 mt-1 flex bg-slate-600 mb-2 flex-col items-center justify-center w-[100%] h-auto">
+          <div className="bg-gothic-950/0 mt-1 flex bg-slate-600/0 mb-2 flex-col items-center justify-center w-[100%] h-auto">
             <div className="w-[40%] mt-4 ml-auto mr-auto flex items-center justify-center bg-black/25 h-9 rounded-3xl ">
-              <p className="text-black text-[16px] font-bold">Transactions</p>
+              <p className="text-white text-[16px] font-bold">Transactions</p>
             </div>
             <div className="w-[96%] mt-2 py-2 px-2 h-auto mb-20 rounded-md bg-black/0">
             
               {history &&
-                history.filter((item) => item.chain === providerName).map((item, i) => (
+                history.filter((item) => item.network === cluster).map((item, i) => (
                   <>
                    <div className="bg-gothic-950/0 mt-4 mb-4 flex items-center justify-center w-[100%] h-auto">
                       <div onClick={() => {
