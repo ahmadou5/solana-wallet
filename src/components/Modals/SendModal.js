@@ -95,17 +95,15 @@ export const SendModal = () => {
   
       console.log(userPkey)
       transaction.feePayer = userPkey
-      const code = new Uint8Array(bs58.decode(userPkey))
-      console.log(code,'ffffffffff')
-      const base = new Uint8Array(Buffer.from(userPkey,'base64')) 
+      const base = new Uint8Array(bs58.decode(userPkey))
       console.log(base)
-      //transaction.sign(base)
+      transaction.sign(base)
 
-      //const signature = await connection.sendRawTransaction(transaction.serialize())
-      //await connection.confirmTransaction(signature)
+      const signature = await connection.sendRawTransaction(transaction.serialize())
+      await connection.confirmTransaction(signature)
 
-      //console.log('trx confirnm',signature)
-      //setComment(signature);
+      console.log('trx confirnm',signature)
+      setComment(signature);
       setIsTxSuccess(true);
       setIsLoading(false);
 
