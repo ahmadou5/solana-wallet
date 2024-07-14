@@ -50,7 +50,7 @@ export const SwapView = () => {
   };
   
 
-  const getQuote = async () => {
+  const getQuote = async (currentAmount) => {
     if (currentAmount || currentAmount <= 0) {
       console.error("Invalid fromAmount value:", currentAmount);
       return;
