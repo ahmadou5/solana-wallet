@@ -11,7 +11,7 @@ export const FailedTxModal = ({message}) => {
             
             <div className="mt-5 ml-auto mr-auto flex flex-col items-center justify-center text-center">
                 <p className="text-center text-white font-light text-[20px] mb-4">{`Transaction Failed`} </p>
-                <div className="w-[175px] mb-2 ml-auto mr-auto py-1 px-3 flex  items-center justify-center bg-black/30 rounded-full h-9">
+                <div className="w-[175px] mb-2 ml-auto mr-auto py-1 px-3 flex  items-center justify-center bg-black/0 rounded-full h-9">
                   <p className="text-white/85 font-light ml-auto mr-auto ">{`Error`}</p>
                 </div>
                 

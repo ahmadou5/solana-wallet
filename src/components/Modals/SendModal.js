@@ -131,7 +131,7 @@ export const SendModal = () => {
                 formatAddress(receiveAddress)
               }`}</p>
             </div>
-            <div className="w-[98%] mt-4 ml-auto mr-auto h-[230px] py-3 px-2 flex flex-col items-center justify-center rounded-2xl bg-black/20">
+            <div className="w-[98%] mt-4 ml-auto mr-auto h-[230px] py-3 px-2 flex flex-col items-center justify-center border border-[#448cff]/60 rounded-2xl bg-black/40">
               <div className="w-[100%] ml-auto mr-auto text-white rounded-xl  flex  h-16">
                 <input
                   onChange={(e) => setAmount(e.target.value)}
@@ -160,7 +160,7 @@ export const SendModal = () => {
                 </div>
               </div>
               <div className="mt-10 w-[100%] ml-auto mr-auto">
-                <div className="w-[98%] ml-auto mr-auto py-1 rounded-xl bg-black/90 h-14">
+                <div className="w-[98%] ml-auto mr-auto py-1 border border-[#448cff]/60 rounded-xl bg-black/90 h-14">
                   <button
                     onClick={() => {
                       if (receiveAddress !== "" && amount > 0) {
