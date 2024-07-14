@@ -148,7 +148,7 @@ export const Home2 = () => {
       {isSwap && (<SwapView />)}
       {isTokens && (
         <>
-          <div className="bg-gothic-950/0 mt-1 flex bg-slate-600  mb-2 flex-col items-center justify-center w-[100%] h-auto">
+          <div className="bg-gothic-950/0 mt-1 flex bg-slate-600/0  mb-2 flex-col items-center justify-center w-[100%] h-auto">
             <div className="w-[40%] mt-4 ml-auto mr-auto flex items-center justify-center bg-black/25 h-9 rounded-3xl ">
               <p className="text-black text-[16px] font-bold">Settings</p>
             </div>
