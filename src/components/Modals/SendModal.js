@@ -9,6 +9,8 @@ import { formatAddress } from "@/Utils/format";
 //import { TransactionSuccessModal } from "./TransactionSuccess";
 //import { FailedTxModal } from "./TransactionFailed"
 //import { Supabase } from "@/Utils/supabasedb"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { SpinningCircles } from "react-loading-icons"
 import { Supabase } from "@/Utils/Supabasedb";
 import { FailedTxModal } from "./TransactionFailed";
@@ -39,7 +41,7 @@ export const SendModal = () => {
   const [failedcomment, setFailedComment] = useState("");
   const [amount, setAmount] = useState(0);
   
-
+  const alertify = toast('Address Copied!!!')
   const multiple = (x, y) => {
     return x * y;
   };

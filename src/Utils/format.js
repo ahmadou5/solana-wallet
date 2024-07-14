@@ -17,7 +17,7 @@ export const formatAddress = (value) => {
     navigator.clipboard.writeText(value).then(
       () => {
        
-        alert('Copied to clip Board')
+        console.log('Copied to clip Board')
       },
       (err) => {
         // Failed to copy to clipboard
