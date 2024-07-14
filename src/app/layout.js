@@ -2,7 +2,7 @@ import { Inter, Medula_One } from "next/font/google";
 import "./globals.css";
 import { MiniContextProvider } from "@/context/AppContext";
 import Script from "next/script";
-const inter = Medula_One({ subsets: ["latin"] });
+const inter = Medula_One({ subsets: ["latin"], weight: '400' });
 
 export const metadata = {
   title: "Create Next App",
