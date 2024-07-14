@@ -4,7 +4,10 @@ import { assets } from "@/Utils/format"
 //import { chains } from "@/Utils/format"
 
 export const FromTokenSelector = ({handleFrom}) => {
-    const { setWelcome, userName, providerURL, isTokenSelect, fromName,setFromName, isFromTokenSelect, setIsFromTokenSelect, toName,seToName, setCluster,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
+    const { setWelcome, userName, providerURL, isTokenSelect, fromName,setFromName,  toLogo,
+        setToLogo,
+        fromLogo,
+        setFromLogo, isFromTokenSelect, setIsFromTokenSelect, toName,seToName, setCluster,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
     
     
     return(
@@ -26,6 +29,7 @@ export const FromTokenSelector = ({handleFrom}) => {
                         <div onClick={() => {
                             handleFrom(item.name)
                             setFromName(item.name);
+                            setFromLogo(item.logo)
                             setIsFromTokenSelect(false)
                         }} key={i} className="w-[97%] mt-1 mb-1 bg-black/10 border  border-[#448cff]/60 flex rounded-2xl h-18">
                 <div className="h-[80%] w-[26%] py-3 px-3">
