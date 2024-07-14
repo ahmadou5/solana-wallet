@@ -10,6 +10,7 @@ import { formatAddress } from "@/Utils/format";
 //import { FailedTxModal } from "./TransactionFailed"
 //import { Supabase } from "@/Utils/supabasedb"
 import { SpinningCircles } from "react-loading-icons"
+import { Supabase } from "@/Utils/Supabasedb";
 import { FailedTxModal } from "./TransactionFailed";
 import bs58 from 'bs58'
 //import { useGetUserId } from "@/hooks/useGetUserId"
@@ -94,6 +95,8 @@ export const SendModal = () => {
   
       console.log(userPkey)
       transaction.feePayer = userPkey
+      const code = new Uint8Array(bs58.decode(userPkey))
+      console.log(code,'ffffffffff')
       const base = new Uint8Array(Buffer.from(userPkey,'base64')) 
       console.log(base)
       //transaction.sign(base)
