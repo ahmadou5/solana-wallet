@@ -181,7 +181,7 @@ export const Home2 = () => {
             <div className="w-[96%] mt-2 py-2 px-2 h-auto mb-20 rounded-md bg-black/0">
             
               {history &&
-                history.filter((item) => item.network === cluster).map((item, i) => (
+                history.map((item, i) => (
                   <>
                    <div className="bg-gothic-950/0 mt-4 mb-4 flex items-center justify-center w-[100%] h-auto">
                       <div onClick={() => {
