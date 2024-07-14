@@ -77,14 +77,14 @@ export const PhraseModal = () => {
         return (
           <>
           <div className=" flex items-center justify-center text-[18px] font-light ">
-            <ul className="ml-auto mr-auto">
+            <ul className="ml-5 mr-auto">
               {firstHalf.map((word, index) => (
                 <li key={index}>
                   {index + 1}. {word}
                 </li>
               ))}
             </ul>
-            <ul className="ml-auto mr-auto">
+            <ul className="ml-auto mr-5">
               {secondHalf.map((word, index) => (
                 <li key={index}>
                   {index + 7}. {word}
@@ -100,21 +100,21 @@ export const PhraseModal = () => {
   
   return (
     <div className="inset-0 fixed bg-black bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
-      <div className="w-[100%] py-4 px-4 bg-white/95 rounded-t-3xl h-auto mt-[70px]">
+      <div className="w-[100%] py-4 px-4 bg-white/15 rounded-t-3xl h-auto mt-[70px]">
         <div>
           <div
             onClick={() => setIsPhrase(false)}
-            className="w-20 rounded-xl text-xl text-white font-light flex items-center justify-center h-9 bg-black/85"
+            className="w-20 rounded-xl text-xl text-black font-light flex items-center justify-center h-9 bg-white/85"
           >
             <p>esc</p>
           </div>
         </div>
         <div className="mt-1 px-2 py-3 mb-10 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
           <div className="flex items-center justify-center mt-2">
-            <p className="text-black font-extrabold text-xl">Secret Recovery Phrase</p>
+            <p className="text-white/85 font-extrabold text-xl">Secret Recovery Phrase</p>
           </div>
           <div className="w-[100%] mt-5 text-center bg-black/0 rounded-xl h-20">
-            <p className="text-black/75">
+            <p className="text-white/75">
                This is the only way you will be able to Recover Your account, Please ensure you save it some where safe!
             </p>
           </div>
