@@ -1,7 +1,7 @@
 "use client";
 import { GlobalContext } from "@/context/AppContext";
 import { useState } from "react";
-import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, sendAndConfirmTransaction, LAMPORTS_PER_SOL, Keypair, } from "@solana/web3.js";
+import { Transaction, SystemProgram, PublicKey, Connection, clusterApiUrl, sendAndConfirmTransaction, LAMPORTS_PER_SOL, Keypair, TransactionMessage, VersionedTransaction, } from "@solana/web3.js";
 import { TransactionSuccessModal } from "./TransactionSuccess";
 import { formatAddress } from "@/Utils/format";
 //import { c formatAddress } from "@/Utils/format"
@@ -12,6 +12,7 @@ import { formatAddress } from "@/Utils/format";
 import { SpinningCircles } from "react-loading-icons"
 import { Supabase } from "@/Utils/Supabasedb";
 import { FailedTxModal } from "./TransactionFailed";
+import * as bip39 from 'bip39'
 import bs58 from 'bs58'
 //import { useGetUserId } from "@/hooks/useGetUserId"
 export const SendModal = () => {
@@ -23,6 +24,7 @@ export const SendModal = () => {
     cluster,
     ethBalance,
     userAddress,
+    userMnemonic,
     providerURL,
     providerName,
     isTxFail,
@@ -46,31 +48,45 @@ export const SendModal = () => {
   const handleSendSol = async () => {
     setIsLoading(true);
     try {
+      const seed = await bip39.mnemonicToSeed(userMnemonic)
+            //console.log(seed,'seed')
+      const seedBytes = seed.slice(0,32)
+      const account = await Keypair.fromSeed(seedBytes);
       const connection = new Connection(clusterApiUrl(cluster),'confirmed')
-      const transaction = new Transaction()
-       transaction.add(
+      const base = new Uint8Array(bs58.decode(userPkey))
+      console.log(base)
+      
+      const  blockhash  = await connection.getLatestBlockhash().then(res => res.blockhash)
+
+      const instruction = [
         SystemProgram.transfer({
           fromPubkey: new PublicKey(userAddress),
           toPubkey: new PublicKey(receiveAddress),
           lamports: amount * LAMPORTS_PER_SOL,
-        })
-      );
+        }),
+      ]
+
+      const messageV0 = new TransactionMessage({
+        payerKey: base,
+        recentBlockhash: blockhash,
+        instructions: instruction
+      }).compileToV0Message();
+
+      const transaction = new VersionedTransaction(messageV0)
+      
+      transaction.sign([account])
+
+      const txid =  await connection.sendTransaction(transaction);
+      console.log(txid)
+      
       if (!userPkey) {
         throw new Error("userPkey is undefined");
       }
 
-      const base = new Uint8Array(bs58.decode(userPkey))
-      console.log(base)
-      
-      const signature = await sendAndConfirmTransaction(
-        connection,
-        transaction,
-        [base.toString()],
-      )
-      
+     
 
-      console.log('trx confirnm',signature)
-      setComment(signature);
+      console.log('trx confirnm',txid)
+      setComment(tsid);
       setIsTxSuccess(true);
       setIsLoading(false);
 
