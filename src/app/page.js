@@ -37,6 +37,7 @@ export default function Home() {
   const { isAuthenticate } = GlobalContext()
   return (
     <main className="flex min-h-screen bg-[#448cff] bg-black/0 flex-col items-center justify-between p-1.5">
+      <div id="integrated-terminal"></div>
      {
       isAuthenticate ? 
       <Home2/> : <Create/>
