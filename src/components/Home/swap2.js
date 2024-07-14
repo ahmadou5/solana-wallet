@@ -5,9 +5,10 @@ import {
   Connection,
   Keypair,
   VersionedTransaction,
-  publicKey,
+  PublicKey,
 } from "@solana/web3.js";
 import fetch from "cross-fetch";
+import axios from "axios";
 import * as bip39 from "bip39";
 //import { Wallet } from "@project-serum/anchor";
 import bs58 from "bs58";
@@ -27,71 +28,85 @@ export const SwapView = () => {
   const [toAmount, setToAmount] = useState(0);
   const [quoteResponse, setQuoteResponse] = useState(null);
 
-  
-  const { userPkey, userMnemonic,fromName,setFromName, toName,seToName , setIsToTokenSelect,
-    setIsFromTokenSelect,isToTokenSelect, isFromTokenSelect } = GlobalContext();
+  const {
+    userPkey,
+    userMnemonic,
+    fromName,
+    setFromName,
+    toName,
+    seToName,
+    setIsToTokenSelect,
+    setIsFromTokenSelect,
+    isToTokenSelect,
+    isFromTokenSelect,
+  } = GlobalContext();
 
   const connection = new Connection(clusterApiUrl("devnet"));
 
   const handleFromAssetChange = async (event) => {
-    setFromAsset(
-      assets.find((asset) => asset.name === fromName) || assets[1]
-    );
+    setFromAsset(assets.find((asset) => asset.name === fromName) || assets[1]);
   };
 
   const handleToAssetChange = (event) => {
-    setToAsset(
-      assets.find((asset) => asset.name === toName) || assets[0]
-    );
+    setToAsset(assets.find((asset) => asset.name === toName) || assets[0]);
   };
 
   const handleFromValueChange = (event) => {
     setFromAmount(event.target.value);
+    
   };
-  
 
   const getQuote = async (currentAmount) => {
-    if (currentAmount || currentAmount <= 0) {
+    const quote = await axios.get(`https://quote-api.jup.ag/v6/quote?inputMint=${
+      fromAsset.mint
+    }&outputMint=${toAsset.mint}&amount=${
+      currentAmount * Math.pow(10, fromAsset.decimals)
+    }&slippage=0.5`)
+   console.log('data',quote.data.outAmount)
+   console.log('amount',currentAmount * Math.pow(10, fromAsset.decimals))
+    try {
+      const quote = await axios.get(`https://quote-api.jup.ag/v6/quote?inputMint=${
+        fromAsset.mint
+      }&outputMint=${toAsset.mint}&amount=${
+        currentAmount * Math.pow(10, fromAsset.decimals)
+      }&slippage=0.5`)
+      if(quote.status == 200) {
+        setToAmount(quote.data.outAmount / Math.pow(10, fromAsset.decimals))
+        setQuoteResponse(quote.data)
+      }
+    } catch (error) {
+      console.log(error,'qoute error')
+    }
+   
+    if (currentAmount || currentAmount >= 0) {
       console.error("Invalid fromAmount value:", currentAmount);
       return;
     }
 
-    const quote = await (
-      await fetch(
-        `https://quote-api.jup.ag/v6/quote?inputMint=${
-          fromAsset.mint
-        }&outputMint=${toAsset.mint}&amount=${
-          currentAmount * Math.pow(10, fromAsset.decimals)
-        }&slippage=0.5`
-      )
-    ).json();
-
-    if (quote && quote.outAmount) {
-      const outAmountNumber = quote.outAmount / Math.pow(10, toAsset.decimals);
-      setToAmount(outAmountNumber);
-    }
-
-    setQuoteResponse(quote);
+   
   };
-
-  const debounce = ({func, wait}) => {
+  function debounce(func, wait) {
     let timeout;
   
-    return () => {
+    return function executedFunction(...args) {
       const later = () => {
         clearTimeout(timeout);
-        func();
+        func(...args);
       };
   
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     };
-  };
-  const debounceQuoteCall = useCallback(debounce(getQuote, 500), []);
+  }
 
+  
+  
+  const debouncedFunctioncall =useCallback(debounce(getQuote, 500),[]) ; // Debounce with 500ms delay
+  
+  
   useEffect(() => {
-    debounceQuoteCall(fromAmount);
-  }, [fromAmount, debounceQuoteCall]);
+    debouncedFunctioncall(fromAmount);
+  }, [fromAmount, debouncedFunctioncall]);
 
   const signAndSendTransaction = async () => {
     const seed = await bip39.mnemonicToSeed(userMnemonic);
@@ -108,9 +123,9 @@ export const SwapView = () => {
         },
         body: JSON.stringify({
           quoteResponse,
-          userPublicKey: new publicKey(account.publicKey?.toString()),
+          userPublicKey: new PublicKey(account.publicKey?.toString()),
           wrapAndUnwrapSol: true,
-          // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
+          // feeAccount is optional. Use if you want to charge a fee. feeBps must have been passed in /quote API.
           // feeAccount: "fee_account_public_key"
         }),
       })
@@ -142,7 +157,7 @@ export const SwapView = () => {
     }
   };
   return (
-    <div className=" mt-1 flex  mb-2 flex-col items-center justify-center w-[100%] h-auto">
+    <div className=" mt-1 flex mb-2 flex-col items-center justify-center w-[100%] h-auto">
       <div className="w-[40%] mt-4 mb-2 ml-auto mr-auto flex items-center justify-center bg-black/25 h-9 rounded-3xl ">
         <p className="text-white text-[16px] font-bold">Swap</p>
       </div>
@@ -165,10 +180,9 @@ export const SwapView = () => {
               <div className="w-[55%] py-1.5 flex items-center justify-center bg-slate-50/0">
                 <input
                   className="w-[90%] h-[90%] ml-auto mr-auto text-[19px] bg-transparent outline-none"
-                  onChange={handleFromValueChange}
+                  onChange={(e) => handleFromValueChange(e)}
                   type="text"
                   placeholder="0.00"
-                 
                 />
               </div>
             </div>
@@ -188,26 +202,26 @@ export const SwapView = () => {
                 <MdKeyboardArrowDown className="text-2xl text-[#448cff]/45 ml-auto mr-1 mb-2" />
               </div>
               <div className="w-[55%] py-1.5 flex items-center justify-center bg-slate-50/0">
-                <input
+                <div
                   className="w-[90%] h-[90%] ml-auto mr-auto text-[19px] bg-transparent outline-none"
-                  value={toAmount}
-                  type="text"
-                  placeholder="0.00"
-                  title="Enter Number"
-                />
+               
+                >{toAmount}</div>
               </div>
             </div>
             <div className="mt-8 w-[98%] ml-auto mr-auto">
-               <button className="w-[98%] ml-auto mr-auto py-1 border border-[#448cff]/60 rounded-xl bg-black/90 h-14">Swap</button>
+              <button className="w-[98%] ml-auto mr-auto py-1 border border-[#448cff]/60 rounded-xl bg-black/90 h-14">
+                Swap
+              </button>
             </div>
           </div>
-          
         </div>
       </div>
       <div className="w-[98%] bg-white/10 px-2 flex mt-2 flex-col border border-[#448cff]/60 justify-center items-center rounded-xl h-[80px]">
-      empty
+        empty
       </div>
-      {isFromTokenSelect && <FromTokenSelector handleFrom={handleFromAssetChange}/>}
+      {isFromTokenSelect && (
+        <FromTokenSelector handleFrom={handleFromAssetChange} />
+      )}
       {isToTokenSelect && <ToTokenSelector handleTo={handleToAssetChange} />}
     </div>
   );
