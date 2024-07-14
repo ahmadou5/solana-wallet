@@ -22,7 +22,7 @@ import { GlobalContext } from "@/context/AppContext";
 import { Supabase } from "@/Utils/Supabasedb";
 import { SendModal } from "../Modals/SendModal";
 //import { Welcome } from "../Modals/WelcomeModal";
-//import { formatAddress, truncate, handleCopy } from "@/Utils/format";
+import { formatAddress, truncate, handleCopy } from "@/Utils/format";
 //import { ethers, formatEther } from "ethers";
 //import { useGetTransactions } from "@/hooks/useGetTransaction";
 //import { TransactionModal } from "../Modals/TransactionCard";
@@ -191,7 +191,7 @@ export const Home2 = () => {
                         <div className="ml-1 mt-1 text-black/85 mr-1 px-0">
                         <p className="text-[17px] font-semibold">{`${item.isSend === true ? 'Transfer' : 'Receive'}`}</p>
                           <p className="text-sm mb-1.5">{`${item.isSend === true ? 'to' : 'from'} : ${
-                            item.receiver
+                            formatAddress(item.receiver)
                           }`}</p>
                         </div>
                         <div className="bg-gothic-600/0 w-[49px] flex items-center justify-center h-12 ml-auto mr-7 rounded-full">
