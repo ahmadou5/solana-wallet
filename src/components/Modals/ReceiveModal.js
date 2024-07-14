@@ -2,7 +2,7 @@
 import { GlobalContext } from "@/context/AppContext"
 import { useQRCode } from "next-qrcode"
 import { formatAddress, handleCopy } from "@/Utils/format"
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const ReceiveModal = () => {
@@ -16,7 +16,7 @@ export const ReceiveModal = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "dark",
       transition: Bounce,
       });
     return(
