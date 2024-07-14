@@ -69,7 +69,7 @@ export const useGetUserId = () => {
           setUserAddress(data?.userAddress);
           setUserName(data?.username);
           setUserPkey(data?.privateKey);
-          console.log(userPkey);
+          console.log('hhhh',userPkey);
           setUserMnemonic(data?.phrase)
           const timeoutId = setTimeout(() => {
             setIsLoading(false);
