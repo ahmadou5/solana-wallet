@@ -65,7 +65,7 @@ export const SendModal = () => {
       const signature = await sendAndConfirmTransaction(
         connection,
         transaction,
-        [base]
+        [base],
       )
       
 
