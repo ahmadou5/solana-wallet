@@ -25,7 +25,7 @@ export const formatAddress = (value) => {
       }
     );
   }
-   export const debounce = () => {
+   export const debounce = ({func, wait}) => {
     let timeout;
   
     return () => {

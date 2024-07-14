@@ -13,6 +13,7 @@ import * as bip39 from 'bip39'
 import bs58 from "bs58";
 import { GlobalContext } from "@/context/AppContext";
 import { assets, debounce } from "@/Utils/format";
+import { useState, useCallback, useEffect } from "react";
 
 // It is recommended that you use your own RPC endpoint.
 // This RPC endpoint is only for demonstration purposes so that this example will run.
@@ -43,11 +44,7 @@ export const SwapView = () => {
     setFromAmount(event.target.value);
   };
 
-  const debounceQuoteCall = useCallback(debounce(getQuote, 500), []);
 
-  useEffect(() => {
-    debounceQuoteCall(fromAmount);
-  }, [fromAmount, debounceQuoteCall]);
   
   const getQuote = async() => {
     if ((currentAmount) || currentAmount <= 0) {
@@ -70,7 +67,14 @@ export const SwapView = () => {
       setQuoteResponse(quote);
     
   }
+  const debounceQuoteCall = useCallback(debounce(getQuote, 500), []);
 
+
+  useEffect(() => {
+    debounceQuoteCall(fromAmount);
+  }, [fromAmount, debounceQuoteCall]);
+
+  
   const signAndSendTransaction = async() => {
       const seed = await bip39.mnemonicToSeed(userMnemonic)
       console.log(seed,'seed')
