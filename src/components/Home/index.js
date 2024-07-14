@@ -39,6 +39,8 @@ import useSolanaBalance, { useGetUserBalance } from "@/hooks/useGetBalance";
 import { useGetUserId } from "@/hooks/useGetUserData";
 import { ReceiveModal } from "../Modals/ReceiveModal";
 import { SwapView } from "./swap2";
+import { PhraseModal } from "../Modals/PhraseModal";
+import { PkeyModal } from "../Modals/PrivateModal";
 export const Home2 = () => {
   const {
     user,
@@ -49,6 +51,7 @@ export const Home2 = () => {
     ethPrice,
     ethBalance,
     setEthBalance,
+    setIsSwap,
     welcome,
     isWallet,
     isTokens,
@@ -152,12 +155,12 @@ export const Home2 = () => {
             <div className="w-[96%] mt-2 py-2 px-2 h-auto mb-20 rounded-md bg-black/0">
             <div className="w-[100%] h-[100%] flex flex-col items-center justify-center">
               
-              <div className="bg-white/0 border-b-black/5 border-t-black/5 border border-white/0 w-[99%] flex items-center justify-center rounded-sm h-[70px]">
+              <div onClick={() => setIsPhrase(true)} className="bg-white/0 border-b-black/5 border-t-black/5 border border-white/0 w-[99%] flex items-center justify-center rounded-sm h-[70px]">
                 <div className="ml-[5px]   text-black  mr-auto px-3">
                   <p className="text-[19] font-bold mb-1.5">Show Recovery Phrases</p>
                 </div>
               </div>  
-              <div  className="bg-white/0 border-b-black/5 border-t-black/5 border border-white/0 w-[99%] flex items-center justify-center rounded-sm h-[70px]">
+              <div onClick={() => setIsPrivate(true)} className="bg-white/0 border-b-black/5 border-t-black/5 border border-white/0 w-[99%] flex items-center justify-center rounded-sm h-[70px]">
                 <div className="ml-[5px]   text-black  mr-auto px-3">
                   <p className="text-[19] font-bold mb-1.5">Show Private Key</p>
                 </div>
@@ -219,7 +222,12 @@ export const Home2 = () => {
               <div className="mb-0.5">{providerName}</div>
               <MdKeyboardArrowDown className="text-2xl text-[#448cff]/45 ml-auto mr-1 mb-2" />
              </div>
-             <div className="w-11 p-2 mr-1.5 flex items-center justify-center rounded-full bg-[#448cff]/45">
+             <div onClick={() => {
+              setIsTokens(true)
+              setIsHistory(false)
+              setIsWallet(false)
+              setIsSwap(false)
+              }}  className="w-11 p-2 mr-1.5 flex items-center justify-center rounded-full border border-[#448cff]/45">
                 <IoSettings className="" size={28}/>
              </div>
             </div>
@@ -334,7 +342,8 @@ export const Home2 = () => {
       {isChainList && <ChainSelector/>} 
       {isSend && <SendModal/>}
       {isReceive && <ReceiveModal />}
-
+      {isPhrase && <PhraseModal />}
+      {isPrivate && <PkeyModal />}
       {/**
        * 
        * 

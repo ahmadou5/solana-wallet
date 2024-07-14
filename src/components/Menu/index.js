@@ -67,6 +67,7 @@ export const Menu = () => {
             <div onClick={() => {
               setIsHistory(false)
               setIsSwap(false)
+              setIsTokens(false)
               setIsWallet(true)
             }} className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
                 <IoWallet size={28} className={`${ isWallet ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
@@ -77,6 +78,7 @@ export const Menu = () => {
               setIsHistory(false)
               setIsSwap(true)
               setIsWallet(false)
+              setIsTokens(false)
             }} className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
                 <MdSwapHoriz size={28} className={`${ isSwap ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
                 {isSwap && <p className={`font-light ${isSwap ? 'text-[#448cff]' : 'text-gothic-200'} ${isSwap && 'mt-1'} text-[12px]`}>Swap</p>}
@@ -85,6 +87,7 @@ export const Menu = () => {
               setIsHistory(true)
               setIsSwap(false)
               setIsWallet(false)
+              setIsTokens(false)
             }}
              className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
                 <IoFlash size={28} className={`${ isHistory ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
