@@ -106,7 +106,7 @@ export const SendModal = () => {
             sender: userAddress,
             receiver: receiveAddress,
             amount: amount,
-            hash: signature,
+            hash: txid,
             isSend: true,
             isSpl: false,
             token: "SOL",

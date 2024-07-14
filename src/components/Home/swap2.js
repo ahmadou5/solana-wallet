@@ -223,7 +223,11 @@ export const SwapView = () => {
         </div>
       </div>
       <div className="w-[98%] bg-white/10 px-2 flex mt-2 flex-col border border-[#448cff]/60 justify-center items-center rounded-xl h-[80px]">
-        empty
+        <div>
+          <p>{toAmount}</p>
+          <p></p>
+          <p></p>
+        </div>
       </div>
       {isFromTokenSelect && (
         <FromTokenSelector handleFrom={handleFromAssetChange} />
