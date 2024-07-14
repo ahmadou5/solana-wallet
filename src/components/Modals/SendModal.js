@@ -42,41 +42,7 @@ export const SendModal = () => {
     return x * y;
   };
   const id = user?.initDataUnsafe?.user?.id;
-  const sendSolanaTransaction = async (fromPublicKey, fromPrivateKey, toPublicKey, amount) => {
-    try {
-      // Create a connection to the Solana cluster
-      const connection = new Connection(clusterApiUrl(cluster)); // Replace with desired cluster
-  
-      // Create a Keypair from the private key
-      const fromKeypair = new Uint8Array(Buffer.from(userPkey,'base64'));
-  
-      // Create a transaction
-      const transaction = new Transaction();
-  
-      // Add a transfer instruction to the transaction
-      transaction.add(
-        SystemProgram.transfer({
-          fromPubkey: fromPublicKey,
-          toPubkey: toPublicKey,
-          lamports: amount * LAMPORTS_PER_SOL,
-        })
-      );
-  
-      // Sign the transaction
-      transaction.sign(fromKeypair);
-  
-      // Send the transaction
-      const signature = await connection.sendRawTransaction(transaction.serialize());
-  
-      // Confirm the transaction (optional)
-      await connection.confirmTransaction(signature);
-  
-      return signature;
-    } catch (error) {
-      console.error('Error sending transaction:', error);
-      throw error;
-    }
-  };
+ 
   const handleSendSol = async () => {
     setIsLoading(true);
     try {
@@ -108,7 +74,7 @@ export const SendModal = () => {
       setIsTxSuccess(true);
       setIsLoading(false);
 
-            // Update Supabase history only after successful mining
+          {/** // Update Supabase history only after successful mining
             const { data, error } = await Supabase.from("NewHistory")
             //.insert([{ id: id, sender: userAddress, receiver: receiveAddress, amount: amount, hash: signature, isSend: true, chain: providerName  }])
             .select();
@@ -120,6 +86,7 @@ export const SendModal = () => {
           if (error) {
             console.error(error, "Error saving transaction to Supabase");
           }
+             */} 
       
      
     } catch (error) {
@@ -131,45 +98,7 @@ export const SendModal = () => {
       setIsLoading(false);
     }
   };
-  const handleSendETH2 = async () => {
-    setIsLoading(true);
-
-    try {
-      const signedTx = await wallet.sendTransaction({
-        to: receiveAddress,
-        value: parseUnits(amount, "ether"),
-      });
-
-      console.log("Transaction hash:", signedTx.hash);
-
-      const txReceipt = await signedTx.wait(); // Wait for transaction to be mined
-      setComment(txReceipt.hash);
-      console.log("Transaction mined:", txReceipt.transactionHash);
-      setIsTxSuccess(true);
-      setIsLoading(false);
-
-      const txHash = txReceipt.transactionHash;
-
-      // Update Supabase history only after successful mining
-      const { data, error } = await Supabase.from("NewHistory")
-        //.insert([{ id: id, sender: userAddress, receiver: receiveAddress, amount: amount, hash: txReceipt.hash, isSend: true, chain: providerName  }])
-        .select();
-
-      if (data) {
-        console.log(data, "Transaction data saved to Supabase");
-      }
-
-      if (error) {
-        console.error(error, "Error saving transaction to Supabase");
-      }
-    } catch (error) {
-      console.error("Error sending ETH:", error);
-      setFailedComment(error?.message);
-      setIsTxSuccess(false); // Set error state if transaction fails
-      setIsTxFail(true);
-      setIsLoading(false);
-    }
-  };
+ 
 
   return (
     <div className="inset-0 fixed bg-black bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
