@@ -78,8 +78,7 @@ export const SendModal = () => {
       const txid =  await connection.sendTransaction(transaction);
       console.log(txid)
       
-      const confirming = await connection.confirmTransaction(bs58.encode(transaction));
-      console.log(confirming,'ggggconfirm')
+     
 
      
 
