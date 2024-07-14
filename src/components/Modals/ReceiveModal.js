@@ -16,11 +16,11 @@ export const ReceiveModal = () => {
             </div>
             <div className="mt-1 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[99%] ml-auto mr-auto">
                <div className="w-[100%] font-light text-[19px] mb-1 text-white text-center h-auto bg-slate-50/0 rounded-xl py-2 px-2">
-                 <p>Send ETH and ERC20 tokens only to this address, or you might lose your funds</p>
+                 <p>Send SOL and SPL tokens only to this address, or you might lose your funds</p>
                </div>
                <div className="w-[98%] mt-1 ml-auto mr-auto h-[290px] py-3 px-2 flex flex-col items-center justify-center rounded-2xl bg-white/90">
                 <div className="w-[100%] h-[100%] flex items-center justify-center">
-                    <Canvas text={userAddress} options={{width:275}} className='w-[100%] ml-auto mr-auto rounded-xl h-[100%] text-blue-600' />
+                    <Canvas text={userAddress} options={{width:275}} className='w-[100%] ml-auto mr-auto bg-white rounded-xl h-[100%] text-blue-600' />
                 </div>
                </div>
                <div>
