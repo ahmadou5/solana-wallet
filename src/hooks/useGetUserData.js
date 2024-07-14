@@ -64,7 +64,7 @@ export const useGetUserId = () => {
           return () => clearTimeout(timeoutId);
         }
         if (data) {
-          //console.log(data, "data222");
+          console.log(data, "data222");
           //setIsAuthenticate(true)
           setUserAddress(data?.userAddress);
           setUserName(data?.username);

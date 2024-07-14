@@ -41,6 +41,41 @@ export const SendModal = () => {
     return x * y;
   };
   const id = user?.initDataUnsafe?.user?.id;
+  const sendSolanaTransaction = async (fromPublicKey, fromPrivateKey, toPublicKey, amount) => {
+    try {
+      // Create a connection to the Solana cluster
+      const connection = new Connection(clusterApiUrl(cluster)); // Replace with desired cluster
+  
+      // Create a Keypair from the private key
+      const fromKeypair = new Uint8Array(Buffer.from(userPkey,'base64'));
+  
+      // Create a transaction
+      const transaction = new Transaction();
+  
+      // Add a transfer instruction to the transaction
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: fromPublicKey,
+          toPubkey: toPublicKey,
+          lamports: amount * LAMPORTS_PER_SOL,
+        })
+      );
+  
+      // Sign the transaction
+      transaction.sign(fromKeypair);
+  
+      // Send the transaction
+      const signature = await connection.sendRawTransaction(transaction.serialize());
+  
+      // Confirm the transaction (optional)
+      await connection.confirmTransaction(signature);
+  
+      return signature;
+    } catch (error) {
+      console.error('Error sending transaction:', error);
+      throw error;
+    }
+  };
   const handleSendSol = async () => {
     setIsLoading(true);
     try {
