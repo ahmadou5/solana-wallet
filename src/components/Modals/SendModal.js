@@ -81,7 +81,7 @@ export const SendModal = () => {
       console.log(txid)
       
      
-
+      await connection.confirmTransaction(txid, 'confirmed'); 
      
 
       console.log('trx confirnm',txid)
