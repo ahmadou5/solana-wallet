@@ -53,6 +53,11 @@ export const SendModal = () => {
           lamports: amount * LAMPORTS_PER_SOL,
         })
       );
+      if (!userPkey) {
+        throw new Error("userPkey is undefined");
+      }
+  
+     
       transaction.feePayer = userPkey
       const base = new Uint8Array(Buffer.from(userPkey,'base64')) 
       transaction.sign(base)
