@@ -11,7 +11,7 @@ const assets = [
   { name: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', decimals: 5 },
   { name: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', decimals: 6},
 ];
-const { cluster} = GlobalContext()
+//const { cluster} = GlobalContext()
 const debounce = () => {
   let timeout;
 
@@ -37,7 +37,7 @@ export default function Swap() {
 
   // Need a custom RPC so you don't get rate-limited, don't rely on users' wallets
   const connection = new Connection(
-    clusterApiUrl(cluster)
+    clusterApiUrl('devnet'),'confirmed'
   );
 
   const handleFromAssetChange = async (
