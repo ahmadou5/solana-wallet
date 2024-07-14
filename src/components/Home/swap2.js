@@ -171,7 +171,7 @@ export const SwapView = () => {
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
-                  src="./assets/5426.png"
+                  src={fromAsset.logo}
                   className="mr-1 w-6 h-6 rounded-full"
                 />
                 <div className="mb-0.5">{fromAsset.name}</div>
@@ -195,7 +195,7 @@ export const SwapView = () => {
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
-                  src="./assets/5426.png"
+                  src={toAsset.logo}
                   className="mr-1 w-6 h-6 rounded-full"
                 />
                 <div className="mb-0.5">{toAsset.name}</div>

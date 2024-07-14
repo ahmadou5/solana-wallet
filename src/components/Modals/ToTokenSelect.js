@@ -28,9 +28,9 @@ export const ToTokenSelector = ({handleTo}) => {
                             handleTo(item.name)
                             setIsToTokenSelect(false)
                         }} key={i} className="w-[97%] mt-1 mb-1 bg-black/10 border  border-[#448cff]/60 flex rounded-2xl h-18">
-                {/**<div className="h-[80%] w-[26%] py-3 px-3">
-                <img src={item.imgUrl} className="h-10 rounded-full mt-0 w-10"/>
-                </div>**/}
+                <div className="h-[80%] w-[26%] py-3 px-3">
+                <img src={item.logo} className="h-10 rounded-full mt-0 w-10"/>
+                </div>
                 <div className="h-[100%] text-black ml-4 mr-2 font-light  flex items-center justify-center mt-1 w-[60%] py-4 px-2">
                  <div>{item.name}</div>
                 </div>
