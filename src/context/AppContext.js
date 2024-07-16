@@ -67,6 +67,8 @@ export const MiniContextProvider = ({children}) => {
     const [isLoading,setIsLoading] = useState(true)
     const [fromName,setFromName] = useState('')
     const [toName,seToName] = useState('')
+    const [toLogo,setToLogo] = useState('')
+    const [fromLogo,setFromLogo] = useState('')
     const [isFromTokenSelect, setIsFromTokenSelect] = useState(false)
     const [isToTokenSelect, setIsToTokenSelect] = useState(false)
     const [isSwapModal,setIsSwapModal] = useState(true);
@@ -135,6 +137,10 @@ export const MiniContextProvider = ({children}) => {
     isFromTokenSelect, 
     isToTokenSelect, 
     isSwapModal,
+    toLogo,
+    setToLogo,
+    fromLogo,
+    setFromLogo,
     setIsSwapModal,
     setIsToTokenSelect,
     setIsFromTokenSelect,
