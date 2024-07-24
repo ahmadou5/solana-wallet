@@ -34,6 +34,16 @@ export const SwapView = () => {
     isSwapModal,setIsSwapModal,
     userMnemonic,
     fromName,
+    fromLogo,
+    toMint,
+    toLogo,
+    seToMint,
+    fromDec,
+    toDec,
+    setToDec,
+    setFromDec,
+    fromMint,
+    setFromMint,
     setFromName,
     toName,
     seToName,
@@ -45,12 +55,12 @@ export const SwapView = () => {
 
   const connection = new Connection(clusterApiUrl("devnet"));
 
-  const handleFromAssetChange = async (event) => {
-    setFromAsset(assets.find((asset) => asset.name === fromName ) || assets[1]);
+  const handleFromAssetChange = (event) => {
+    setFromAsset(assets.find((asset) => asset.name === fromName ) );
   };
 
   const handleToAssetChange = (event) => {
-    setToAsset(assets.find((asset) => asset.name === toName) || assets[0]);
+    setToAsset(assets.find((asset) => asset.name === event.target.value) || assets[0]);
   };
 
   const handleFromValueChange = (event) => {
@@ -59,21 +69,16 @@ export const SwapView = () => {
   };
 
   const getQuote = async (currentAmount) => {
-    const quote = await axios.get(`https://quote-api.jup.ag/v6/quote?inputMint=${
-      fromAsset.mint
-    }&outputMint=${toAsset.mint}&amount=${
-      currentAmount * Math.pow(10, fromAsset.decimals)
-    }&slippage=0.5`)
-   console.log('data',quote.data.outAmount)
-   console.log('amount',currentAmount * Math.pow(10, fromAsset.decimals))
+    console.log('from',fromMint)
+    console.log('to',toMint)
     try {
       const quote = await axios.get(`https://quote-api.jup.ag/v6/quote?inputMint=${
-        fromAsset.mint
-      }&outputMint=${toAsset.mint}&amount=${
-        currentAmount * Math.pow(10, fromAsset.decimals)
+        fromMint
+      }&outputMint=${toMint}&amount=${
+        currentAmount * Math.pow(10, fromDec)
       }&slippage=0.5`)
       if(quote.status == 200) {
-        setToAmount(quote.data.outAmount / LAMPORTS_PER_SOL)
+        setToAmount(quote.data.outAmount / LAMPORTS_PER_SOL * 1000 )
         setQuoteResponse(quote.data)
       }
     } catch (error) {
@@ -87,6 +92,23 @@ export const SwapView = () => {
 
    
   };
+  const CheckQuote = async (currentAmount) => {
+    try {
+      const quote = await axios.get(`https://quote-api.jup.ag/v6/quote?inputMint=${
+        fromMint
+      }&outputMint=${toMint}&amount=${
+        currentAmount * Math.pow(10, fromDec)
+      }&slippage=0.5`)
+      if(quote.status == 200) {
+        setToAmount(quote.data.outAmount / LAMPORTS_PER_SOL * 1000)
+        setQuoteResponse(quote.data)
+      }
+     console.log('data',quote.data.outAmount)
+     console.log('amount',currentAmount * Math.pow(1,6))
+    } catch (error) {
+      console.log(error)
+    }
+  }
   function debounce(func, wait) {
     let timeout;
   
@@ -135,13 +157,10 @@ export const SwapView = () => {
     try {
       const swapTransactionBuf = Buffer.from(swapTransaction, "base64");
       const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
-      const signedTransaction = await account.signTransaction(transaction);
+      transaction.sign([account])
 
-      const rawTransaction = signedTransaction.serialize();
-      const txid = await connection.sendRawTransaction(rawTransaction, {
-        skipPreflight: true,
-        maxRetries: 2,
-      });
+     
+      const txid = await connection.sendTransaction(transaction);
 
       const latestBlockHash = await connection.getLatestBlockhash();
       await connection.confirmTransaction(
@@ -173,10 +192,10 @@ export const SwapView = () => {
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
-                  src={fromAsset.logo}
+                  src={fromLogo}
                   className="mr-1 w-6 h-6 rounded-full"
                 />
-                <div className="mb-0.5">{fromAsset.name}</div>
+                <div className="mb-0.5">{fromName}</div>
                 <MdKeyboardArrowDown className="text-2xl text-[#448cff]/45 ml-auto mr-1 mb-2" />
               </div>
               <div className="w-[55%] py-1.5 flex items-center justify-center bg-slate-50/0">
@@ -197,21 +216,21 @@ export const SwapView = () => {
                 className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-3xl p-1.5 flex ml-3 mr-[45px] w-[40%] h-9"
               >
                 <img
-                  src={toAsset.logo}
+                  src={toLogo}
                   className="mr-1 w-6 h-6 rounded-full"
                 />
-                <div className="mb-0.5">{toAsset.name}</div>
+                <div className="mb-0.5">{toName}</div>
                 <MdKeyboardArrowDown className="text-2xl text-[#448cff]/45 ml-auto mr-1 mb-2" />
               </div>
               <div className="w-[55%] py-1.5 flex items-center justify-center bg-slate-50/0">
                 <div
                   className="w-[90%] h-[90%] ml-auto mr-auto text-[19px] bg-transparent outline-none"
                
-                >{toAmount}</div>
+                >{toAmount.toString().slice(0,7)}</div>
               </div>
             </div>
             <div className="mt-8 w-[98%] ml-auto mr-auto">
-              <button className="w-[98%] ml-auto mr-auto py-1 border border-[#448cff]/60 rounded-xl bg-black/90 h-14">
+              <button onClick={() => signAndSendTransaction()} className="w-[98%] ml-auto mr-auto py-1 border border-[#448cff]/60 rounded-xl bg-black/90 h-14">
                 Swap
               </button>
             </div>

@@ -57,7 +57,7 @@ export const MiniContextProvider = ({children}) => {
     const [isSend,setIsSend] = useState(false)
     const [isReceive,setIsReceive] = useState(false)
     const [isScan,setIsScan] = useState(false)
-    const [isAuthenticate,setIsAuthenticate] = useState(false)
+    const [isAuthenticate,setIsAuthenticate] = useState(true)
     const [user,setUser ] = useState(null);
     const [userAddress,setUserAddress] = useState('')
     const [userName, setUserName] = useState('')
@@ -65,10 +65,14 @@ export const MiniContextProvider = ({children}) => {
     const [userMnemonic,setUserMnemonic] = useState(null)
     const [welcome,setWelcome] = useState(false)
     const [isLoading,setIsLoading] = useState(true)
-    const [fromName,setFromName] = useState('')
-    const [toName,seToName] = useState('')
-    const [toLogo,setToLogo] = useState('')
-    const [fromLogo,setFromLogo] = useState('')
+    const [fromName,setFromName] = useState('SOL')
+    const [toName,setToName] = useState('USDC')
+    const [toMint,setToMint] = useState('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
+    const [fromMint,setFromMint] = useState('So11111111111111111111111111111111111111112')
+    const [toLogo,setToLogo] = useState('https://statics.solscan.io/cdn/imgs/s60?ref=https://statics.solscan.io/cdn/imgs/s60?ref=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f736f6c616e612d6c6162732f746f6b656e2d6c6973742f6d61696e2f6173736574732f6d61696e6e65742f45506a465764643541756671535371654d32714e31787a7962617043384734774547476b5a777954447431762f6c6f676f2e706e67')
+    const [fromLogo,setFromLogo] = useState('https://statics.solscan.io/cdn/imgs/s60?ref=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f736f6c616e612d6c6162732f746f6b656e2d6c6973742f6d61696e2f6173736574732f6d61696e6e65742f536f31313131313131313131313131313131313131313131313131313131313131313131313131313131322f6c6f676f2e706e67')
+    const [fromDec,setFromDec] = useState(0)
+    const [toDec,setToDec] = useState(0)
     const [isFromTokenSelect, setIsFromTokenSelect] = useState(false)
     const [isToTokenSelect, setIsToTokenSelect] = useState(false)
     const [isSwapModal,setIsSwapModal] = useState(true);
@@ -139,12 +143,20 @@ export const MiniContextProvider = ({children}) => {
     isSwapModal,
     toLogo,
     setToLogo,
+    toMint,
+    fromMint,
+    fromDec,
+    setFromDec,
+    setFromMint,
+    setToMint,
+    toDec,
+    setToDec,
     fromLogo,
     setFromLogo,
     setIsSwapModal,
     setIsToTokenSelect,
     setIsFromTokenSelect,
-    seToName,
+    setToName,
     setFromName,
     setCluster,
     setIsSwap,

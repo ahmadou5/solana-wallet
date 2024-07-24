@@ -7,7 +7,7 @@ export const FromTokenSelector = ({handleFrom}) => {
     const { setWelcome, userName, providerURL, isTokenSelect, fromName,setFromName,  toLogo,
         setToLogo,
         fromLogo,
-        setFromLogo, isFromTokenSelect, setIsFromTokenSelect, toName,seToName, setCluster,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
+        setFromLogo, isFromTokenSelect, fromDec,setFromDec, fromMint,setFromMint, setIsFromTokenSelect, toName,seToName, setCluster,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
     
     
     return(
@@ -27,7 +27,9 @@ export const FromTokenSelector = ({handleFrom}) => {
                     assets && assets.map((item,i) => (
                         <>
                         <div onClick={() => {
-                            handleFrom(item.name)
+                           // handleFrom(item.name)
+                            setFromDec(item.decimals)
+                            setFromMint(item.mint)
                             setFromName(item.name);
                             setFromLogo(item.logo)
                             setIsFromTokenSelect(false)

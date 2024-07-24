@@ -7,7 +7,7 @@ export const ToTokenSelector = ({handleTo}) => {
     const { setWelcome, userName, providerURL, isTokenSelect, isToTokenSelect, setIsToTokenSelect,  toLogo,
         setToLogo,
         fromLogo,
-        setFromLogo, fromName,setFromName, toName,seToName, setCluster,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
+        setFromLogo, fromName,setFromName, toName,setToName, toDec,setToDec, toMint,setToMint, setCluster,setProviderURL,isSwap,setIsSwap,providerImg,setProviderImg ,userAddress, scan,setScan, providerTick,setProviderTick,providerName,setProviderName,isChainList,setIsChainList } = GlobalContext()
     
     
     return(
@@ -27,9 +27,11 @@ export const ToTokenSelector = ({handleTo}) => {
                     assets && assets.map((item,i) => (
                         <>
                         <div onClick={() => {
-                            seToName(item.name);
+                            setToMint(item.mint)
+                            setToName(item.name);
                             setToLogo(item.logo)
-                            handleTo(item.name)
+                            setToDec(item.decimals)
+                            //handleTo(item.name)
                             setIsToTokenSelect(false)
                         }} key={i} className="w-[97%] mt-1 mb-1 bg-black/10 border  border-[#448cff]/60 flex rounded-2xl h-18">
                 <div className="h-[80%] w-[26%] py-3 px-3">
