@@ -76,7 +76,7 @@ export const Create = () => {
             if(data) {
                 console.log(data,'data')
                 setIsSuccess(true)
-                alert('created')
+                //alert('created')
             }
         } catch (error) {
             console.log(error)
