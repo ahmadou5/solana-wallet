@@ -205,37 +205,36 @@ export const SendModal = () => {
           </div>
         ) : (
           <div className="mt-3 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[100%] ml-auto mr-auto">
-            <div className="border w-[100%] mt-[90px] h-[210px] border-[#448cff]/60 bg-black/45 rounded-2xl mb-2 ">
-            <div className="mt-7 w-[98%] ml-auto mr-auto">
-              <div className="w-[100%] ml-auto mr-auto mb-4 mt-[29px] flex rounded-xl text-[19px] text-black/75 py-3 px-3 items-start  bg-black/0 h-12">
-                <p className=" text-white/85 text-xl font-light">Receiver</p>
-              </div>
-              <div className="w-[98%] mt-4 ml-auto mr-auto rounded-xl text-xl border bg-black/0 border-[#448cff]/45 h-16">
+            <div className="w-[98%] bg-white/10 px-2 flex flex-col border mt-5 border-[#448cff]/60 justify-center items-center rounded-xl h-[370px]">
+          <div className="w-[99%] py-2 px-1 h-[40%] bg-black/0">
+            <p className="mb-3 mt-2 mr-auto text-xl ml-3">Receive Address</p>
+            <div className={`w-[100%] ml-auto mr-auto ${receiveAddress.length > 0 && receiveAddress.length < 42 ? ' border-red-500 border' : 'border-none'} h-16 py-2 px-1 flex rounded-2xl bg-black/15`}>
+              
+              <div className="w-[99%] py-1.5 flex items-center justify-center bg-slate-50/0">
                 <input
+                  className={`w-[90%] h-[90%] ml-auto mr-auto text-[19px] bg-transparent outline-none`}
                   onChange={(e) => setReceiveAddress(e.target.value)}
                   type="text"
-                  className="outline-none text-[22px] text-white/60 bg-transparent w-[95%] h-[100%]  py-2 px-4"
-                  placeholder="Enter Address"
+                  placeholder="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
                 />
               </div>
             </div>
+          </div>
+          <div className="w-[99%] flex flex-col py-2 px-1 h-[60%] bg-black/0">
+           
+            
+            <div className="mt-[140px] w-[98%] ml-auto mr-auto">
+              <button onClick={() => {
+                if(receiveAddress.length >= 40 ) {
+                  setIsConfirmed(true)
+                }
+              }}  className="w-[98%] ml-auto mr-auto py-1 border border-[#448cff]/60 rounded-xl bg-black/90 h-14">
+                Next
+              </button>
             </div>
-            <div className="mt-10 w-[100%] ml-auto mr-auto">
-              <div className="w-[99%] ml-auto mr-auto rounded-xl border border-[#448cff]/60 bg-black/90 h-14">
-                <button
-                  onClick={() => {
-                    if (receiveAddress.length < 32) {
-                      alert("not Valid PublicKey");
-                    } else {
-                      setIsConfirmed(true);
-                    }
-                  }}
-                  className="outline-none bg-transparent w-[100%] h-[100%] text-[16px] text-white/95  py-2 px-4"
-                >
-                  Continue
-                </button>
-              </div>
-            </div>
+          </div>
+        </div>
+            
           </div>
         )}
       </div>
