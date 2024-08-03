@@ -219,8 +219,9 @@ export const Home2 = () => {
               setIsHistory(false)
               setIsWallet(false)
               setIsSwap(false)
-              }}  className="w-11 p-2 mr-1.5 flex items-center justify-center rounded-full border border-[#448cff]/45">
-                <IoSettings className="" size={28}/>
+              }}  className="w-11 p-2 mr-1.5 flex items-center justify-center rounded-full">
+               
+                <img src="./assets/setting.svg" className="text-white" />
              </div>
             </div>
             <div className="bg-s-gray-300/0 w-[90%] flex items-center justify-center rounded-3xl h-[120px]">
@@ -239,15 +240,15 @@ export const Home2 = () => {
                onClick={() => setIsSend(true)}
                 className="text-xl bg-white/10  border-[#448cff]/25 flex flex-col items-center justify-center rounded-3xl h-20 w-20 ml-auto mr-auto  text-white/60"
               >
-                <IoIosSend className="text-3xl font-bold text-white/75" />
+                <img src="./assets/send.svg" className="mt-1" />
                 <p className="text-sm mt-2.5 text-white/50 font-light ">Send</p>
               </div>
               <div
                 onClick={() => setIsReceive(true)}
                 className="text-3xl  bg-white/10 flex flex-col items-center justify-center rounded-3xl h-20 w-20 ml-auto mr-auto  text-white/60"
               >
-                <IoAdd className="text-3xl font-bold text-[#448cff]/55" />
-                <p className="text-sm mt-2.5 text-[#448cff]/55 font-light ">
+                <img src="./assets/receive.svg" className="mt-1" />
+                <p className="text-sm mt-2.5 text-white/50 font-light ">
                   Receive
                 </p>
               </div>
