@@ -316,7 +316,7 @@ export const Home2 = () => {
             }
           <div 
                 
-                className={`w-[159px]   ml-1 mr-auto py-1 mb-5 px-3 flex  items-center justify-center bg-black/0 rounded-full h-8`}
+                className={`w-[199px]   ml-1 mr-auto py-1 mb-5 px-3 flex  items-center justify-center bg-black/0 rounded-full h-8`}
               >
                 <p className="text-[#448DFC] font-light text-[14px] ml-auto mr-auto ">
                   + Add Custom token
