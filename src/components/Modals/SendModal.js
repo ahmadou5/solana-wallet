@@ -47,6 +47,7 @@ export const SendModal = () => {
     user,
   } = GlobalContext();
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [preview,setPreview] = useState(false)
   const [receiveAddress, setReceiveAddress] = useState("");
   const [comment, setComment] = useState("");
   const [failedcomment, setFailedComment] = useState("");
@@ -185,7 +186,7 @@ export const SendModal = () => {
                   <button
                     onClick={() => {
                       if (receiveAddress !== "" && amount > 0) {
-                        handleSendSol();
+                        setPreview(true);
                       }
                     }}
                     className="outline-none bg-transparent w-[100%] h-[100%] text-white  py-2 px-4"
@@ -199,6 +200,60 @@ export const SendModal = () => {
                   </button>
                 </div>
               </div>
+              { preview && (
+                <>
+                <div className="inset-0 fixed bg-black/95 bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
+        <div className="w-[100%] flex items-center px-3 justify-center">
+            <div className="h-[416px] ml-auto mr-auto py-2 px-2 w-[352px] bg-white/15 rounded-xl">
+            
+            <div className="mt-5 ml-auto mr-auto flex flex-col items-center justify-center text-center">
+                <p className="text-center text-[#DEEAFC]  font-light text-[18px] mb-3">{`Transaction Details`} </p>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/sol.png" className="w-[42px] h-[42px]" />
+                </div>
+                <div className="w-[90%]  ml-auto mr-auto py-1 px-3 flex  items-center justify-center bg-white/0 rounded-full h-9">
+                  <p className="text-white/85 font-bold text-[32px] ml-auto mr-auto ">{`${amount} SOL`}</p>
+                </div>
+                <div className="w-[90%]  ml-auto mr-auto py-1 px-3 flex  items-center justify-center bg-white/0 rounded-full h-9">
+                  <p className="text-[#666666] font-bold text-[14px] ml-auto mr-auto ">{`$${multiple(ethPrice, amount).toString().slice(0, 6)}`}</p>
+                </div>
+                
+                <div className="w-[303px]  ml-auto mr-auto py-1 px-3 flex flex-col items-center justify-center bg-white/0 rounded-sm mt-1 mb-3 h-[163px]">
+                  <div className="w-[100%] mt-1 mb-1 bg-black/15 h-10 py-2 px-2 rounded-2xl flex">
+                    <div className="ml-2 mr-auto">To</div>
+                    <div className="ml-auto mr-2">{formatAddress(receiveAddress)}</div>
+                  </div>
+                  <div className="w-[100%] mt-1 mb-1 bg-black/15 h-10 py-2 px-2 rounded-2xl flex">
+                    <div className="ml-2 mr-auto">Network</div>
+                    <div className="ml-auto mr-2">Solana</div>
+                  </div>
+                  <div className="w-[100%] mt-1 mb-1 bg-black/15 h-10 py-2 px-2 rounded-2xl flex">
+                    <div className="ml-2 mr-auto">Fee</div>
+                    <div className="ml-auto mr-2">0.0003</div>
+                  </div>
+                  <div className="w-[100%] bg-white h-0.5/2"></div>
+                </div>
+                <div className="flex w-[100%]">
+                <div onClick={() => {
+                    //setIsSend(false)
+                    setPreview(false)
+                    }} className="w-[105px] mt-1  ml-auto mr-auto py-1 px-3 flex  items-center border border-[#448cff]/60  justify-center text-white bg-black/90 rounded-full h-9">
+                  <p>Cancel</p>
+                </div>
+                <div onClick={() => {
+                    //setIsSend(false)
+                    //setIsTxSuccess(false)
+                    }} className="w-[105px] mt-1  ml-auto mr-auto py-1 px-3 flex  items-center border border-[#448cff]/60  justify-center text-white bg-black/90 rounded-full h-9">
+                  <p>Sign</p>
+                </div>
+                </div>
+               
+            </div>
+            </div>
+        </div>
+    </div>
+                </>
+                )}
               {isTxSuccess && (
                 <TransactionSuccessModal hash={comment} amount={amount} />
               )}
