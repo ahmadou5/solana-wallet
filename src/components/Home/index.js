@@ -252,12 +252,7 @@ export const Home2 = () => {
                   Receive
                 </p>
               </div>
-              <div
-              
-              className="text-xl  bg-white/10 flex flex-col items-center justify-center rounded-3xl h-20 w-20 ml-auto mr-auto  text-white/60">
-                <MdSwapHoriz className="text-3xl text-[#448cff]/55" />
-                <p className="text-sm mt-2.5 text-[#448cff]/55 font-light ">Swap</p>
-              </div>
+             
             </div>
           </div>
           {/**<div className="bg-gothic-950/0 mt-16 flex items-center justify-center w-[100%] h-auto">
