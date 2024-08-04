@@ -87,6 +87,8 @@ export const SendModal = () => {
 
       const transaction = new VersionedTransaction(messageV0);
 
+      
+
       transaction.sign([account]);
 
       const txid = await connection.sendTransaction(transaction);
@@ -204,26 +206,45 @@ export const SendModal = () => {
             </div>
           </div>
         ) : (
-          <div className="mt-3 px-2 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[100%] ml-auto mr-auto">
-            <div className="w-[98%] bg-white/10 px-2 flex flex-col border mt-5 border-[#448cff]/60 justify-center items-center rounded-xl h-[370px]">
-          <div className="w-[99%] py-2 px-1 h-[40%] bg-black/0">
-            <p className="mb-3 mt-2 mr-auto text-xl ml-3">Receive Address</p>
-            <div className={`w-[100%] ml-auto mr-auto ${receiveAddress.length > 0 && receiveAddress.length < 42 ? ' border-red-500 border' : 'border-none'} h-16 py-2 px-1 flex rounded-2xl bg-black/15`}>
+          <div className="mt-3 px-1 py-3 bg-red-600/0 h-[85%] flex flex-col rounded-xl w-[100%] ml-auto mr-auto">
+            <div className="w-[100%] bg-white/0 px-2 flex flex-col border mt-5 border-[#448cff]/0 justify-center items-center rounded-xl h-[370px]">
+          <div className="w-[100%] py-2 px-0 h-[40%] bg-black/0">
+            <div className="flex">
+            <p className="mb-3 mt-2 mr-auto text-[16px] ml-3">Receiver`s Address</p>
+            <div className="mr-4 mt-2">
+              {
+                receiveAddress.length > 42 &&
+                <>
+                <img src="./assets/good.svg" />
+                </> 
+               
+              }
+            </div>
+            </div>
+            <div className={`w-[100%] ml-auto mr-auto ${receiveAddress.length > 0 && receiveAddress.length < 42 ? ' border-red-500 border' : 'border-none'} h-16 py-2 px-1 flex rounded-2xl bg-[#1F1F1F]`}>
               
               <div className="w-[99%] py-1.5 flex items-center justify-center bg-slate-50/0">
                 <input
-                  className={`w-[90%] h-[90%] ml-auto mr-auto text-[19px] bg-transparent outline-none`}
+                  className={`w-[90%] h-[90%] ml-auto mr-auto text-[18px] bg-transparent outline-none`}
                   onChange={(e) => setReceiveAddress(e.target.value)}
                   type="text"
-                  placeholder="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+                  placeholder="Address"
                 />
               </div>
+            </div>
+            <div>
+              { receiveAddress.length > 0 && receiveAddress.length < 42 ? 
+              <>
+              <p className="text-[#FC4444] text-[14px]">Invalid address</p>
+              </>
+               : 
+              <></>}
             </div>
           </div>
           <div className="w-[99%] flex flex-col py-2 px-1 h-[60%] bg-black/0">
            
             
-            <div className="mt-[140px] w-[98%] ml-auto mr-auto">
+            <div className="mt-[190px] w-[98%] ml-auto mr-auto">
               <button onClick={() => {
                 if(receiveAddress.length >= 40 ) {
                   setIsConfirmed(true)
