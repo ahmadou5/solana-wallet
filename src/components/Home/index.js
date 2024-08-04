@@ -207,8 +207,8 @@ export const Home2 = () => {
       )}
       {isWallet && (
         <>
-          <div className="bg-gothic-950/0 mt-1 flex  mb-2 flex-col items-center justify-center w-[100%] h-auto">
-            <div className="mt-1 mb-10 w-full flex">
+          <div className="bg-gothic-950/0 mt-0.5 flex  mb-2 flex-col items-center justify-center w-[100%] h-auto">
+            <div className="mt-0.5 mb-4 w-full flex">
              <div onClick={() => setIsChainList(true)} className="bg-white/15 border border-[#448cff]/45 text-white mt-1 rounded-xl p-1.5 flex ml-auto mr-[45px] w-[51%] h-9">
              <img src='./assets/5426.png' className="mr-1 w-6 h-6 rounded-full"/>
               <div className="mb-0.5">{providerName}</div>
@@ -224,7 +224,8 @@ export const Home2 = () => {
                 <img src="./assets/setting.svg" className="text-white" />
              </div>
             </div>
-            <div className="bg-s-gray-300/0 w-[90%] flex items-center justify-center rounded-3xl h-[120px]">
+            <div className="bg-s-gray-300/0 w-[90%] flex flex-col items-center justify-center rounded-3xl h-[120px]">
+              <p className="text-[14px] font-light text-[#666666] mb-0.5">Total Balance</p>
               <p className="text-5xl font-bold text-white/85">{`$${multiple(
                ethPrice,
                ethBalance
@@ -266,7 +267,8 @@ export const Home2 = () => {
             </div>
     </div> **/}
           <div className="bg-gothic-950/0 mt-8 flex flex-col items-center justify-center w-[100%] h-auto">
-            <div className="bg-white/10 w-[90%] mb-3 flex items-center justify-center rounded-3xl h-[70px]">
+            <p className=" ml-7 mr-auto text-[16px] font-light text-[#ddd9d9] mb-1.5">Balances</p>
+            <div className="bg-white/10 w-[90%] mb-1.5 flex items-center justify-center rounded-3xl h-[70px]">
               <div className="bg-gothic-600/85 w-12 flex items-center justify-center h-12 ml-[23px] mr-[10px] rounded-full">
                 <img
                   src={"./assets/5426.png"}
@@ -289,7 +291,7 @@ export const Home2 = () => {
             {
               token1 && token1.map((token,i) => (
                 <>
-                <div className="bg-white/10 w-[90%] mb-3 flex items-center justify-center rounded-3xl h-[70px]">
+                <div className="bg-white/10 w-[90%] mb-0.5 flex items-center justify-center rounded-3xl h-[70px]">
               <div className="bg-gothic-600/85 w-12 flex items-center justify-center h-12 ml-[23px] mr-[10px] rounded-full">
                 <img
                   src={"./assets/5426.png"}
@@ -314,10 +316,10 @@ export const Home2 = () => {
             }
           <div 
                 
-                className={`w-[205px] ${tokens?.length > 0 ? 'mt-[30px]' : 'mt-[80px]'}   ${tokens?.length > 0 ? 'mb-[100px]' : 'mb-[30px]'}   ml-auto mr-auto py-1 mb-5 px-3 flex  items-center justify-center bg-black/80 rounded-full h-11`}
+                className={`w-[159px]   ml-1 mr-auto py-1 mb-5 px-3 flex  items-center justify-center bg-black/0 rounded-full h-8`}
               >
-                <p className="text-white font-light text-[14px] ml-auto mr-auto ">
-                  Add Custom token
+                <p className="text-[#448DFC] font-light text-[14px] ml-auto mr-auto ">
+                  + Add Custom token
                 </p>
               </div>
           </div>
