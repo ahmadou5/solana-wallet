@@ -8,6 +8,7 @@ import { MdSwapHoriz } from "react-icons/md";
 import { RiCoinsLine } from "react-icons/ri";
 import { BsCoin } from "react-icons/bs";
 import { GlobalContext } from "@/context/AppContext";
+import { HistorySvg } from "./History";
 
 
 
@@ -80,8 +81,8 @@ export const Menu = () => {
               setIsWallet(false)
               setIsTokens(false)
             }} className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
-                <MdSwapHoriz size={28} className={`${ isSwap ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
-                {isSwap && <p className={`font-light ${isSwap ? 'text-[#448cff]' : 'text-gothic-200'} ${isSwap && 'mt-1'} text-[12px]`}>Swap</p>}
+                <IoFlash size={28} className={`${ isSwap ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
+                {isSwap && <p className={`font-light ${isSwap ? 'text-[#448cff]' : 'text-gothic-200'} ${isSwap && 'mt-1'} text-[12px]`}>Activity</p>}
             </div>
             <div onClick={() => {
               setIsHistory(true)
@@ -90,7 +91,7 @@ export const Menu = () => {
               setIsTokens(false)
             }}
              className={`h-12 ml-auto mr-auto w-[30%] bg-white/0 flex flex-col items-center justify-center`}>
-                <IoFlash size={28} className={`${ isHistory ? 'text-[#448cff]' : 'text-gothic-600/85'}`} />
+                <HistorySvg isColor={isHistory}/>
                 {isHistory && <p className={`font-light ${isHistory ? 'text-[#448cff]' : 'text-gothic-200'} ${isHistory && 'mt-1'} text-[12px]`}>History</p>}
             </div>
           </div>          
