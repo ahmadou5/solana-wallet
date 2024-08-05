@@ -195,7 +195,7 @@ export const SendModal = () => {
                     {loading ? (
                       <SpinningCircles className="ml-auto mr-auto h-7 w-7" />
                     ) : (
-                      "Send"
+                      "Confirm"
                     )}
                   </button>
                 </div>
@@ -240,11 +240,24 @@ export const SendModal = () => {
                     }} className="w-[105px] mt-1  ml-auto mr-auto py-1 px-3 flex  items-center border border-[#448cff]/60  justify-center text-white bg-black/90 rounded-full h-9">
                   <p>Cancel</p>
                 </div>
-                <div onClick={() => {
-                    //setIsSend(false)
-                    //setIsTxSuccess(false)
-                    }} className="w-[105px] mt-1  ml-auto mr-auto py-1 px-3 flex  items-center border border-[#448cff]/60  justify-center text-white bg-black/90 rounded-full h-9">
-                  <p>Sign</p>
+               
+                <div className="w-[105px] mt-1  ml-auto mr-auto py-1 px-3 flex  items-center border border-[#448cff]/60  justify-center text-white bg-black/90 rounded-full h-9">
+                  <button
+                    onClick={() => {
+                      if (receiveAddress !== "" && amount > 0) {
+                        handleSendSol();
+                        //setIsTxSuccess(true)
+                      }
+                    }}
+                    className="outline-none bg-transparent w-[100%] h-[100%] text-white  py-0 px-4"
+                  >
+                    {/** */}{" "}
+                    {loading ? (
+                      <SpinningCircles className="ml-auto mr-auto h-5 w-5" />
+                    ) : (
+                      "Sign"
+                    )}
+                  </button>
                 </div>
                 </div>
                
