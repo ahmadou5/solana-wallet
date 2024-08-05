@@ -14,7 +14,7 @@ export const TransactionSuccessModal = ({hash,amount}) => {
             <div className="mt-0 ml-auto mr-auto flex flex-col items-center justify-center text-center">
                
                 <div className="w-[200px] mb-5 h-[200px] flex items-center justify-center">
-                  <img src="./assets/good.svg" className="w-[90%] h-[90%]"/>
+                  <img src="./assets/good.svg" className="w-[80%] h-[80%]"/>
                 </div>
                 <div className="w-[100%]  ml-auto mr-auto py-1 px-3 flex  items-center justify-center bg-white/0 rounded-full h-9">
                   <p className="text-white/85 font-light text-[24px] ml-auto mr-auto ">{`Transaction successfull`}</p>
@@ -33,7 +33,7 @@ export const TransactionSuccessModal = ({hash,amount}) => {
                 <div onClick={() => {
                     setIsSend(false)
                     setIsTxSuccess(false)
-                    }} className="w-[245px] mt-[120px]  ml-auto mr-auto py-1 px-3 flex  items-center border border-[#448cff]/60  justify-center text-black bg-white/60 rounded-full h-9">
+                    }} className="w-[245px] mt-[100px]  ml-auto mr-auto py-1 px-3 flex  items-center border border-[#448cff]/60  justify-center text-black bg-white/60 rounded-full h-9">
                   <p>Continue</p>
                 </div>
             </div>
