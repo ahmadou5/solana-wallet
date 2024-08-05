@@ -26,3 +26,15 @@ body {
     text-wrap: balance;
   }
 }
+.transaction {
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      #000000 60%
+    )
+    #82f366 100%;
+}
+
+.BOT {
+  background: linear-gradient(180deg, #448DFC 0%, #285496 100%);
+}

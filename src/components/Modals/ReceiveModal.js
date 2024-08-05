@@ -49,7 +49,7 @@ export const ReceiveModal = () => {
                </div>
              </div>
                </div>
-               <ToastContainer draggable/>
+               
             </div>
         </div>
     </div>
