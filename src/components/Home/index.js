@@ -41,6 +41,7 @@ import { ReceiveModal } from "../Modals/ReceiveModal";
 import { SwapView } from "./swap2";
 import { PhraseModal } from "../Modals/PhraseModal";
 import { PkeyModal } from "../Modals/PrivateModal";
+import { TestModal } from "../Modals/test";
 export const Home2 = () => {
   const {
     user,
@@ -73,7 +74,7 @@ export const Home2 = () => {
     setIsChainList,
   } = GlobalContext();
  
-  
+  const [test,setTest] = useState(true)
   const token1 = [
     
 
@@ -329,6 +330,7 @@ export const Home2 = () => {
       <div className="mt-auto mb-auto">
         <Menu />
       </div>
+      {test && <TestModal/>}
       {isChainList && <ChainSelector/>} 
       {isSend && <SendModal/>}
       {isReceive && <ReceiveModal />}
