@@ -1,11 +1,14 @@
 import { ACTIONS_CORS_HEADERS } from "@solana/actions"
 import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js"
 export const GET = async(request) => {
+  const requestUrl = new URL(request.url);
+  const logoUrl = new URL('/assets/infuse.svg',requestUrl.origin)
+  console.log(logoUrl)
   const response = {
-    icon: 'hhttps://solana-wallet-orcin.vercel.app/assets/infuse.svg',
+    icon: logoUrl,
     description: 'InFuse Fund Reqeust',
     title: 'Urgent SOL',
-    label: 'Send 0.1',
+    label: 'Send 0.09',
     error: {
       message:"You Don`t Have Much to Give"
     }
@@ -17,12 +20,12 @@ export const POST = async(request) => {
     const ReqBody = await request.json()
    
     const userPKey = ReqBody.account;
-    const connection = new Connection(clusterApiUrl('devnet'))
+    const connection = new Connection(clusterApiUrl('mainnet-beta'))
     const TO_ADDRESS = new PublicKey('BwY8CufbQMF7YPsPEfere1DhYPehTBPSpRJJKG2gTvDq')
     const transaction1 = new Transaction().add(
       SystemProgram.transfer({
         toPubkey: TO_ADDRESS,
-        lamports: 2 * LAMPORTS_PER_SOL,
+        lamports: 0.09 * LAMPORTS_PER_SOL,
         fromPubkey: new PublicKey(userPKey)
       })
     )
