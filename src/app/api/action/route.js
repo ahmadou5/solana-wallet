@@ -2,7 +2,7 @@ import { ACTIONS_CORS_HEADERS } from "@solana/actions"
 import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js"
 export const GET = async(request) => {
   const response = {
-    icon: 'https://earn-fuse.vercel.app/assets/infuse.svg',
+    icon: 'hhttps://solana-wallet-orcin.vercel.app/assets/infuse.svg',
     description: 'InFuse Fund Reqeust',
     title: 'Urgent SOL',
     label: 'Send 0.1',
