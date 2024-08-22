@@ -1,5 +1,5 @@
 import { ACTIONS_CORS_HEADERS } from "@solana/actions"
-import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js"
+import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js"
 export const GET = async(request) => {
   const response = {
     icon: 'https://earn-fuse.vercel.app/assets/show.png',
@@ -19,37 +19,19 @@ export const POST = async(request) => {
     const userPKey = ReqBody.account;
     const connection = new Connection(clusterApiUrl('mainnet-beta'))
     const TO_ADDRESS = new PublicKey('BwY8CufbQMF7YPsPEfere1DhYPehTBPSpRJJKG2gTvDq')
-   // const tx = new Transaction()
-    const blockhash = await connection
-        .getLatestBlockhash()
-        .then((res) => res.blockhash);
+    const transaction1 = new Transaction().add(
+      SystemProgram.transfer({
+        toPubkey: TO_ADDRESS,
+        lamports: 2 * LAMPORTS_PER_SOL,
+        fromPubkey: new PublicKey(userPKey)
+      })
+    )
+    transaction1.feePayer = new PublicKey(userPKey)
+    transaction1.recentBlockhash = (await connection.getLatestBlockhash()).blockhash
 
-      const instruction = [
-        SystemProgram.transfer({
-          fromPubkey: new PublicKey(userPKey),
-          toPubkey: TO_ADDRESS,
-          lamports: 2 * LAMPORTS_PER_SOL,
-        }),
-      ];
-
-      const messageV0 = new TransactionMessage({
-        payerKey: new PublicKey(userPKey),
-        recentBlockhash: blockhash,
-        instructions: instruction,
-      }).compileToV0Message();
-
-      const transaction = new VersionedTransaction(messageV0);
-    console.log(userPKey,'account ne')
-    const transaction1 = new Transaction().add(SystemProgram.transfer({
-          fromPubkey: new PublicKey(userPKey),
-          toPubkey: TO_ADDRESS,
-          lamports: 2 * LAMPORTS_PER_SOL,
-    }))
-
-    transaction1.feePayer = userPKey
-    transaction1.recentBlockhash = (await connection.getLatestBlockhash()).hash;
-    const response = {
-      transaction: transaction1,
+    const seriliaze = transaction1.serialize({requireAllSignatures:false,verifySignatures:false}).toString('base64')
+      const response = {
+      transaction: seriliaze,
       message: `Hello from ${userPKey}`
     }
     
