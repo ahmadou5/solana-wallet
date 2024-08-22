@@ -2,12 +2,12 @@ import { ACTIONS_CORS_HEADERS } from "@solana/actions"
 import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js"
 export const GET = async(request) => {
   const response = {
-    icon: 'https://earn-fuse.vercel.app/assets/show.png',
-    description: 'this is infuse blink',
-    title: 'Urgent 2k',
-    label: 'Send SOL',
+    icon: 'https://earn-fuse.vercel.app/assets/infuse.svg',
+    description: 'InFuse Fund Reqeust',
+    title: 'Urgent SOL',
+    label: 'Send 0.1',
     error: {
-      message:"This is not yet implemented"
+      message:"You Don`t Have Much to Give"
     }
   }
   return Response.json(response,{headers:ACTIONS_CORS_HEADERS})
@@ -17,7 +17,7 @@ export const POST = async(request) => {
     const ReqBody = await request.json()
    
     const userPKey = ReqBody.account;
-    const connection = new Connection(clusterApiUrl('mainnet-beta'))
+    const connection = new Connection(clusterApiUrl('devnet'))
     const TO_ADDRESS = new PublicKey('BwY8CufbQMF7YPsPEfere1DhYPehTBPSpRJJKG2gTvDq')
     const transaction1 = new Transaction().add(
       SystemProgram.transfer({
