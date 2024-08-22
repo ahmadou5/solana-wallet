@@ -15,15 +15,33 @@ export const GET = async(request) => {
 
 export const POST = async(request) => {
     const ReqBody = await request.json()
+    //const Receiver = ReqBody.address
     const userPKey = ReqBody.account;
     const connection = new Connection(clusterApiUrl('mainnet-beta'))
-    const tx = new Transaction()
-    tx.feePayer = new PublicKey(userPKey)
-    tx.recentBlockhash = (await connection.getLatestBlockhash({commitment: 'finalized'})).blockhash
-    const serialTX = tx.serialize({requireAllSignatures:false, verifySignatures:false}).toString('base64')
+    const TO_ADDRESS = new PublicKey('BwY8CufbQMF7YPsPEfere1DhYPehTBPSpRJJKG2gTvDq')
+   // const tx = new Transaction()
+    const blockhash = await connection
+        .getLatestBlockhash()
+        .then((res) => res.blockhash);
+
+      const instruction = [
+        SystemProgram.transfer({
+          fromPubkey: new PublicKey(userPKey),
+          toPubkey: TO_ADDRESS,
+          lamports: 2 * LAMPORTS_PER_SOL,
+        }),
+      ];
+
+      const messageV0 = new TransactionMessage({
+        payerKey: new PublicKey(userPKey),
+        recentBlockhash: blockhash,
+        instructions: instruction,
+      }).compileToV0Message();
+
+      const transaction = new VersionedTransaction(messageV0);
     console.log(userPKey,'account ne')
     const response = {
-      transaction: serialTX,
+      transaction: transaction,
       message: `Hello from ${userPKey}`
     }
     
