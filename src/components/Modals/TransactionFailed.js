@@ -12,7 +12,7 @@ export const FailedTxModal = ({message}) => {
             <div className="mt-0 ml-auto mr-auto flex flex-col items-center justify-center text-center">
                
                 <div className="w-[200px] mb-5 h-[200px] flex items-center justify-center">
-                  <img src="./assets/bad.svg" className="w-[90%] h-[90%]"/>
+                  <img src="./assets/bad.svg" className="w-[80%] h-[80%]"/>
                 </div>
                 <div className="w-[90%]  ml-auto mr-auto py-1 px-3 flex  items-center justify-center bg-white/0 rounded-full h-9">
                   <p className="text-white/85 font-light text-[24px] ml-auto mr-auto ">{`Transaction Failed`}</p>
