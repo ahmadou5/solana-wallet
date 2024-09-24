@@ -1,5 +1,5 @@
 import { ACTIONS_CORS_HEADERS } from "@solana/actions"
-import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js"
+import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, TransactionMessage, VersionedTransaction, Transaction } from "@solana/web3.js"
 export const GET = async(request) => {
   const requestUrl = new URL(request.url);
   const logoUrl = new URL('/assets/infuse.svg',requestUrl.origin)
@@ -20,21 +20,35 @@ export const POST = async(request) => {
     const ReqBody = await request.json()
    
     const userPKey = ReqBody.account;
-    const connection = new Connection(clusterApiUrl('mainnet-beta'))
+    const connection = new Connection(clusterApiUrl('mainnet-beta'),'confirmed')
     const TO_ADDRESS = new PublicKey('BwY8CufbQMF7YPsPEfere1DhYPehTBPSpRJJKG2gTvDq')
-    const transaction1 = new Transaction().add(
-      SystemProgram.transfer({
-        toPubkey: TO_ADDRESS,
-        lamports: 0.09 * LAMPORTS_PER_SOL,
-        fromPubkey: new PublicKey(userPKey)
-      })
-    )
-    transaction1.feePayer = new PublicKey(userPKey)
-    transaction1.recentBlockhash = (await connection.getLatestBlockhash()).blockhash
+    //const account = await Keypair.fromSeed(seedBytes);
+   // const connection = new Connection(clusterApiUrl(cluster), "confirmed");
 
-    const seriliaze = transaction1.serialize({requireAllSignatures:false,verifySignatures:false}).toString('base64')
-      const response = {
-      transaction: seriliaze,
+    const blockhash = await connection
+      .getLatestBlockhash()
+      .then((res) => res.blockhash);
+
+    const instruction = [
+      SystemProgram.transfer({
+        fromPubkey: new PublicKey(userPKey),
+        toPubkey: TO_ADDRESS,
+        lamports: 0.5 * LAMPORTS_PER_SOL,
+      }),
+    ];
+
+    const messageV0 = new TransactionMessage({
+      payerKey: new PublicKey(userPKey),
+      recentBlockhash: blockhash,
+      instructions: instruction,
+    }).compileToV0Message();  
+    const transaction = new VersionedTransaction(messageV0).serialize().toString('base64');
+
+    
+
+    //transaction.sign([new PublicKey(userPKey)]);
+    const response = {
+      transaction: transaction ,
       message: `Hello from ${userPKey}`
     }
     
